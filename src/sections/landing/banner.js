@@ -14,8 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './login';
 import Register from './register';
 import Verification from './verification';
+import Authcontext from 'context/AuthContext';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useState,useEffect,useContext } from 'react';
 import { rgba } from 'polished';
 import Image from 'components/image';
 import serverRack from 'assets/images/server-rack.png';
@@ -23,22 +24,15 @@ import serverRack from 'assets/images/server-rack.png';
 
 
 const Banner = () => {
+  const {clearSession} = useContext(Authcontext);
+
+
   const [state, setState] = useState('cleared');
 
  
   const showForm  = (e) =>{
-    e.preventDefault();
-    console.log(e.target.id)
-    setState(e.target.id);
-
+    setState(e);
   }
-
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.id]: e.target.value,
-    });
-  };
 
   return (
     <Box as="section" id="home" sx={styles.section}>
@@ -48,17 +42,22 @@ const Banner = () => {
           { state == 'cleared'  && 
           <Fragment>
             <Heading>Powering your buisness with Smart Inventory Systems</Heading>
-            <Button onClick={showForm} id="showLoginForm" variant="muted" sx={styles.submit}   >
+            <Button onClick={(e)=>{
+              clearSession()
+              showForm('showLoginForm')
+              }} id="showLoginForm" variant="muted" sx={styles.submit}   >
               Login
             </Button>
-            <Button onClick={showForm} id="showRegisterForm" variant="primary" sx={styles.submit}>
+            <Button onClick={(e)=>{
+              clearSession()
+              showForm('showRegisterForm')}} id="showRegisterForm" variant="primary" sx={styles.submit}>
               Register
             </Button>
             </Fragment>
           }
-          {state == 'showLoginForm'  &&  <Login clear={showForm} />  }
-          {state == 'needVerification'  &&  <Verification clear={showForm} />}
-          {state == 'showRegisterForm'  &&  <Register clear={showForm} /> }
+          {state == 'showLoginForm'  &&  <Login showForm={showForm} />  }
+          {state == 'needVerification'  &&  <Verification showForm={showForm} />}
+          {state == 'showRegisterForm'  &&  <Register showForm={showForm} /> }
 
           </Box>
           <Box as="figure" sx={styles.illustration}>

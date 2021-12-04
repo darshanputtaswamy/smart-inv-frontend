@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useEffect,useState, useContext } from 'react';
 import { rgba } from 'polished';
 import {toast } from 'react-toastify';
 import Authcontext from 'context/AuthContext';
@@ -10,12 +10,22 @@ import {
     Button,
   } from 'theme-ui';
 
-const Register = ({clear}) => {
+const Register = ({showForm}) => {
+
     const [username, setUsername] = useState('');
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const {register, error} = useContext(Authcontext);
+    const {initializing,register, error,sessionUser,clearSession} = useContext(Authcontext);
+    useEffect(() => {
+      if (!initializing) {
+        if (sessionUser) {
+          if (!sessionUser.isverified) {
+            showForm("needVerification") // go to default protected page
+          }
+        }
+      }
+    }, [initializing, sessionUser])
 
 
  const handleSubmit = (e) => {
@@ -39,11 +49,7 @@ const Register = ({clear}) => {
         toast.error("passwords do not match");
         return 
     }
-    console.log(e.target);
-    console.log(username)
-    console.log(mobile)
-    console.log(password)
-    console.log(confirmPassword)
+   
     register({username,mobile,password});
   };
 
@@ -58,16 +64,14 @@ const Register = ({clear}) => {
               <Label htmlFor="password">Confirm Password</Label>
               <Input type="password" name="cpassword" id="cpassword" mb={3}  onChange={(e)=> setConfirmPassword(e.target.value)} />
               <Flex >
-              <Button   onClick={clear} id="cleared" variant="muted" sx={styles.submitl50}>
+              <Button   onClick={(e)=>showForm("cleared")} id="cleared" variant="muted" sx={styles.submitl50}>
                 Cancel
               </Button>
-              <Button   onClick={clear} id="needVerification" variant="muted" sx={styles.submitr50}>
-                Verify
-              </Button>
-              </Flex>
-              <Button   onClick={handleSubmit} id="register" variant="primary" sx={styles.submit}>
+              <Button   onClick={handleSubmit} id="register" variant="primary" sx={styles.submitr50}>
                  Register
               </Button>
+              </Flex>
+           
             
               </Fragment>
     );

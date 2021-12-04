@@ -6,6 +6,7 @@ import { initGA, logPageView } from 'analytics';
 */
 import '../assets/css/react-slick.css';
 import {AuthProvider} from 'context/AuthContext';
+import {AuthGuard} from 'context/AuthGuard';
 
 export default function CustomApp({ Component, pageProps }) {
   /** 
@@ -17,7 +18,14 @@ export default function CustomApp({ Component, pageProps }) {
    */
 
   return (<AuthProvider>
-            <Component {...pageProps} /> 
+            {Component.requireAuth ? (
+                <AuthGuard>
+                  <Component {...pageProps} />
+                </AuthGuard>
+              ) : (
+                // public page
+                <Component {...pageProps} />
+            )}
           </AuthProvider>
   );
 }

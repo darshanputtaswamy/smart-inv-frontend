@@ -1,57 +1,113 @@
 import { createContext, useState, useEffect } from "react";
 import {useRouter} from 'next/router';
+import Cookies from 'js-cookie'
 
+import api from '../../api.js';
 
-const AuthContext = createContext()
+const AuthContext = createContext({})
 const redirectKey = "sign_in_redirect"
+
+const isValidToken = (accessToken) => {
+    if (!accessToken) {
+        return false
+    }
+
+    const decodedToken = jwtDecode(accessToken)
+    const currentTime = Date.now() / 1000
+    console.log(decodedToken)
+    return decodedToken.exp > currentTime
+}
+
 
 
 export const AuthProvider = ({children}) =>{
-    const [initializing,setInitializing ] = useState(true);
-    const [user, setUser] = useState(null);
+    const [initializing,setInitializing ] = useState(false);
+    const [sessionUser, setSessionUser] = useState(null);
     const [error, setError] = useState(null);
     const [verified, setVerified] = useState(false);
 
+    const setSession = (obj) => {
+        if (obj) {
+            localStorage.setItem('accessToken', obj.accessToken)
+            localStorage.setItem('user', JSON.stringify(obj.user))
+            api.defaults.headers.common.Authorization = `Bearer ${obj.accessToken}`
+        }
+    }
+
+    const clearSession = () =>{
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('user')
+            delete api.defaults.headers.common.Authorization
+            setSessionUser(false);
+            setInitializing(false);
+    }
+    
+
     // Register user;
-    const register = async (user) =>{
-        console.log(user);
+    const register = async (newuser) =>{
+        setInitializing(true);
+        const response = await api.post('/api/v1.0/user', {
+            phone:newuser.mobile,
+            username:newuser.username,
+            password:newuser.password
+        })
+        const { accessToken, user } = response.data
+        setSession({ accessToken, user })
+        setSession();
+        setSessionUser(user);
+        setInitializing(false);
     }
     //Login User
     const login = async ({mobile,password}) =>{
-        console.log(mobile,password);
-        setUser(true);
         setInitializing(true);
+        const response = await api.post('/api/v1.0/user/login', {
+            phone:mobile,
+            password:password,
+        })
+        const { accessToken, user } = response.data
+        setSession({ accessToken, user })
+        setSessionUser(user);
+        setInitializing(false);
     }
 
-    const verifyUser = async ({mobile,verificationCode}) =>{
-        console.log(mobile,verificationCode);
-        setVerified(true);
+    const verifyUser = async (verification_code) =>{
+
+        if(sessionUser){
+            console.log(sessionUser)
+            setInitializing(true);
+            const response = await api.post('/api/v1.0/user/verification', {
+                phone:sessionUser.phone,
+                verification_code:verification_code,
+            })
+            const { accessToken, user } = response.data
+            setSession({ accessToken, user })
+            setSessionUser(user);
+            setInitializing(false);
+        }
     }
 
     // Logout user 
     const logout = () =>{
+        setInitializing(true);
         console.log('Logout');
-        setUser(false);
-        setInitializing(false);
+        clearSession();
     }
-
-    function setRedirect(redirect) {
-        window.sessionStorage.setItem(redirectKey, redirect)
-    }
-      
-      function getRedirect() {
-        return window.sessionStorage.getItem(redirectKey)
-    }
-      
-      function clearRedirect() {
-        return window.sessionStorage.removeItem(redirectKey)
-      }
-    // Check if user is logged in 
-
+ 
+ 
+      let authObj = 
+      {initializing,
+        sessionUser,
+        verified,
+        error,
+        register,
+        login,
+        logout,
+        verifyUser,
+        clearSession
+    };
 
     return (
-        <AuthContext.Provider value={{initializing,user,verified,
-        error,register,login,logout,verifyUser,setRedirect,getRedirect,clearRedirect}}>
+        <AuthContext.Provider value={authObj}>
             {children}
         </AuthContext.Provider>
     )

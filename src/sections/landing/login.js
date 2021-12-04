@@ -1,6 +1,7 @@
-import { Fragment, useState,userEffect,useContext } from 'react';
+import { Fragment, useState,useEffect,useContext } from 'react';
 import { rgba } from 'polished';
 import { toast } from 'react-toastify';
+import { useRouter } from "next/router"
 import 'react-toastify/dist/ReactToastify.css';
 import Authcontext from 'context/AuthContext';
 
@@ -11,11 +12,23 @@ import {
     Button,
   } from 'theme-ui';
 
-const Login = ({clear}) => {
-    const {login,error } = useContext(Authcontext);
+const Login = ({showForm}) => {
+    const {initializing,login,error,sessionUser,clearSession} = useContext(Authcontext);
+    
+    const router = useRouter();
 
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+      if (!initializing) {
+        if (sessionUser && sessionUser.isverified) {
+            router.push("/dashboard") // go to default protected page
+        }else if (sessionUser && !sessionUser.isverified) {
+          showForm("needVerification")
+        }
+      }
+    }, [router, initializing, sessionUser])
 
 
  const handleSubmit = (e) => {
@@ -26,7 +39,7 @@ const Login = ({clear}) => {
         toast.error("mobile number cannot be null");
         return 
     }
-    if(password.length< 6 ){
+    if(password.length< 2 ){
         toast.error("passwords is too short");
         return 
     }
@@ -41,7 +54,7 @@ const Login = ({clear}) => {
         <Label htmlFor="password">Password</Label>
         <Input type="password" name="password" id="password" mb={3}  onChange={(e)=> setPassword(e.target.value)} />
         <Flex >
-            <Button  onClick={clear} id="cleared" variant="muted" sx={styles.submitl50}>
+            <Button  onClick={(e)=>showForm("cleared")}  variant="muted" sx={styles.submitl50}>
             Cancel
             </Button>
             <Button  onClick={handleSubmit} id="login" variant="primary" sx={styles.submitr50}>

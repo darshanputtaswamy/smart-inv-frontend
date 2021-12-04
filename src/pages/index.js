@@ -12,4 +12,4 @@ export default function IndexPage() {
   );
 }
 
-IndexPage.requireAuth = true
+IndexPage.requireAuth = false

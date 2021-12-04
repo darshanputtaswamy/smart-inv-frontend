@@ -1,6 +1,7 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState,useEffect ,useContext} from 'react';
 import { rgba } from 'polished';
 import OtpInput from 'react-otp-input';
+import { useRouter } from "next/router"
 
 import {
     Flex,
@@ -8,18 +9,35 @@ import {
     Label,
     Button,
   } from 'theme-ui';
+  import Authcontext from 'context/AuthContext';
 
-const Verification = ({clear}) => {
+const Verification = ({showForm}) => {
     const [otp, setOtp] = useState('');
+    const {initializing,sessionUser,verifyUser,error} = useContext(Authcontext);
+    const router = useRouter();
 
-    const handleOtpChange = (otp) =>{
-        console.log(otp)
-        setOtp(otp)
-    }
+    useEffect(() => {
+      console.log("The current value of the input: ", otp);
+    }, [otp]);
+
+    useEffect(() => {
+      if (!initializing) {
+        if (sessionUser && sessionUser.isverified) {
+            router.push("/dashboard") // go to default protected page
+        }else if (sessionUser && !sessionUser.isverified) {
+          showForm("needVerification")
+        }
+      }
+    }, [router, initializing, sessionUser])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target);
+        if(e.target.id == "verify" ){
+          if(otp.length == 4){
+              verifyUser(otp)
+          }
+        }
+        
     };
 
     return (
@@ -27,6 +45,7 @@ const Verification = ({clear}) => {
         <div sx={styles.otpcenter}>
           <OtpInput
           value={otp}
+          onChange={setOtp}
           separator={
             <span>
               <strong>.</strong>
@@ -36,7 +55,7 @@ const Verification = ({clear}) => {
             width: "3rem",
             height: "3rem",
             margin: "0 1rem",
-            fontSize: "2rem",
+            fontSize: "1rem",
             borderRadius: 4,
             border: "1px solid rgba(0,0,0,0.3)"
           }}
@@ -45,17 +64,18 @@ const Verification = ({clear}) => {
           OTPLength={4}
           otpType="number"
           disabled={false}
+          isInputNum 
         />
        </div>
-        <Button  onClick={handleSubmit} id="login" variant="primary" sx={styles.submit}>
+        <Button  onClick={handleSubmit} id="verify" variant="primary" sx={styles.submit}>
             Verify
-            </Button>
+         </Button>
             <Flex >
     
-    <Button  onClick={clear} id="cleared" variant="muted" sx={styles.submitl50}>
+    <Button  onClick={(e)=>{showForm("cleared")}} id="cleared" variant="muted" sx={styles.submitl50}>
         Cancel
         </Button>
-        <Button  onClick={handleSubmit} id="login" variant="primary" sx={styles.submitr50}>
+        <Button  onClick={handleSubmit} id="resend" variant="primary" sx={styles.submitr50}>
         resend
         </Button>
     </Flex>
