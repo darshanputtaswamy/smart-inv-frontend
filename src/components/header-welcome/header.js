@@ -1,12 +1,15 @@
 /** @jsx jsx */ /** @jsxRuntime classic */
 import { jsx, Box, Flex, Container, Button } from 'theme-ui';
-import { Fragment, useState,useEffect,useContext } from 'react';
+import { Fragment, useState } from 'react';
 import Sticky from 'react-stickynode';
 import Logo from 'components/logo';
+import TopBar from 'components/topbar';
+import LockIcon from 'components/icons/lock';
 import HamburgerMenu from 'components/hamburger';
 import Navbar from './navbar';
+import Router  from 'next/router';
 
-export default function Header() {
+export default function WelcomeHeader() {
 
   const [state, setState] = useState({
     isMobileMenu: false,

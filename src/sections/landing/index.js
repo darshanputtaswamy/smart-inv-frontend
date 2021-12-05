@@ -12,9 +12,12 @@ import Testimonials from 'sections/landing/testimonials';
 import Blog from 'sections/landing/blog';
 import Faq from 'sections/landing/faq';
 import Support from 'sections/landing/support';
-
+import Authcontext from 'context/AuthContext';
+import {useContext,useEffect} from 'react';
 
 export default function LandingPage() {
+
+
     return (
       <ThemeProvider theme={theme}>
         <Layout>

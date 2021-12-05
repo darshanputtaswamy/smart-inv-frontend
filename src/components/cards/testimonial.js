@@ -5,7 +5,7 @@ import Image from 'components/image';
 
 const Testimonial = ({ testimonial }) => {
   const isMobile = useMediaQuery({
-    query: '(max-width: 767px)',
+    query: '(max-width: 1259px)',
   });
   return (
     <Box as="article" sx={styles.testimonial}>

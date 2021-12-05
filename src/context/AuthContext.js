@@ -63,11 +63,30 @@ export const AuthProvider = ({children}) =>{
         const response = await api.post('/api/v1.0/user/login', {
             phone:mobile,
             password:password,
-        })
-        const { accessToken, user } = response.data
-        setSession({ accessToken, user })
-        setSessionUser(user);
-        setInitializing(false);
+        }).catch(function (error) {
+            if (error.response) {
+              // Request made and server responded
+              console.log(error.response);
+              const { message } = error.response.data
+              setInitializing(false);
+              setError(message)
+              return;
+            } else if (error.request) {
+              // The request was made but no response was received
+              console.log(error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message);
+            }
+            return;
+
+          })
+        if(response && response.data){
+            const { accessToken, user } = response.data
+            setSession({ accessToken, user })
+            setSessionUser(user);
+            setInitializing(false);
+        }
     }
 
     const verifyUser = async (verification_code) =>{

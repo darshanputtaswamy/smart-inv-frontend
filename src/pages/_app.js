@@ -7,6 +7,9 @@ import { initGA, logPageView } from 'analytics';
 import '../assets/css/react-slick.css';
 import {AuthProvider} from 'context/AuthContext';
 import {AuthGuard} from 'context/AuthGuard';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 export default function CustomApp({ Component, pageProps }) {
   /** 
@@ -18,6 +21,7 @@ export default function CustomApp({ Component, pageProps }) {
    */
 
   return (<AuthProvider>
+            <ToastContainer />
             {Component.requireAuth ? (
                 <AuthGuard>
                   <Component {...pageProps} />

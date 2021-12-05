@@ -25,7 +25,7 @@ export function AuthGuard({ children }) {
   }
 
   // if auth initialized with a valid user & verified show protected page
-  if (!initializing && sessionUser.isverified) {
+  if (!initializing && sessionUser && sessionUser.isverified) {
     return <>{children}</>
   }
 

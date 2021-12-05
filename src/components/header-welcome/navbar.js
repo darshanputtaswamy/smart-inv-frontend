@@ -2,16 +2,8 @@
 import { jsx, Box } from 'theme-ui';
 import { NavLink } from 'components/link';
 import menuItems from './header.data';
-import { useRouter } from "next/router"
-import Link from "next/link"
-import { useContext } from 'react';
-
-import Authcontext from 'context/AuthContext';
 
 const Navbar = ({ isSticky, isMobile, handleCloseMenu }) => {
-const router = useRouter()
-const {clearSession} = useContext(Authcontext);
-
   return (
     <Box
       as="nav"
@@ -20,15 +12,9 @@ const {clearSession} = useContext(Authcontext);
         isSticky ? ' is-sticky' : ''
       }`}
     >
- <div className={router.pathname == "/main" ? "active" : ""} > <Link href={'/main/'}  style={{ textDecoration: 'none' }}>Stores</Link> </div>
- <div className={router.pathname == "/main/employee" ? "active" : ""}> <Link href={'/main/employee'}  style={{ textDecoration: 'none' }}>Employee</Link> </div>
- <div className={router.pathname == "/main/reports" ? "active" : ""} > <Link href={'/main/reports'}  style={{ textDecoration: 'none' }}>Reports</Link> </div>
- <div className={router.pathname == "/main/profile" ? "active" : ""}> <Link href={'/main/profile'}  style={{ textDecoration: 'none' }}>Profile</Link> </div>
- <div > 
- <Link  href={'/'}  style={{ textDecoration: 'none' }}><div><a onClick={(e)=>{
-     clearSession()
- }}><span className={'fa fa-sign-out'} ></span>Logout</a></div></Link>
-</div>
+      {menuItems.map(({ path, label }, i) => (
+        <NavLink key={i} path={path} label={label} onClick={handleCloseMenu} />
+      ))}
     </Box>
   );
 };
@@ -44,27 +30,9 @@ const styles = {
     a: {
       color: 'white',
       cursor: 'pointer',
-      textDecoration:'none',
       '+ a': {
         ml: [null, null, null, null, null, 6],
       },
-    },
-    div:{
-        width: '100%',
-        textAlign: 'center',
-        pt:[1],
-        pb:[1],
-        borderRadius: '10px',
-    },
-    '.active': {
-        background: 'whitesmoke',
-        transformOrigin: 'top left 0',
-        transition: '0.3s ease 0s',
-        a:{
-            color: '#2a0a4e',
-            fontSize: 'larger',
-            fontWeight: 'bold',
-        }
     },
     '@media only screen and (max-width: 1259px)': {
       position: 'absolute',
@@ -108,4 +76,3 @@ const styles = {
     },
   },
 };
-

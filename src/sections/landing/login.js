@@ -23,12 +23,19 @@ const Login = ({showForm}) => {
     useEffect(() => {
       if (!initializing) {
         if (sessionUser && sessionUser.isverified) {
-            router.push("/dashboard") // go to default protected page
+            router.push("/main") // go to default protected page
         }else if (sessionUser && !sessionUser.isverified) {
           showForm("needVerification")
         }
       }
     }, [router, initializing, sessionUser])
+
+
+    useEffect(()=>{
+      if(error){
+        toast.error(error);
+      }
+    },[error])
 
 
  const handleSubmit = (e) => {
