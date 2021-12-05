@@ -13,6 +13,7 @@ import theme from 'theme';
 import SEO from 'components/seo';
 import Layout from 'components/layout';
 import Banner from 'sections/landing/banner';
+import CrudTable from './CrudTable';
 
 export default function Main() {
     return (
@@ -24,6 +25,7 @@ export default function Main() {
           />  
         <Box as="section" id="navbackground" sx={styles.navbackground}>
         </Box>
+        <CrudTable />
      </Layout>
       </ThemeProvider>
     );

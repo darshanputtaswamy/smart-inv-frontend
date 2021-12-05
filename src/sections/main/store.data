@@ -1,4 +1,6 @@
-export default [{
+
+
+export const storeList =  [{
   "id": 1,
   "bname": "Zemlak and Sons",
   "btype": "Turquoise",
