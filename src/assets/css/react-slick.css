@@ -100,3 +100,7 @@
 }
 
 /*# sourceMappingURL=slick.min.css.map */
+
+.active {
+  opacity: 1;
+}

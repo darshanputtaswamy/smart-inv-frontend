@@ -9,8 +9,7 @@ import {AuthProvider} from 'context/AuthContext';
 import {AuthGuard} from 'context/AuthGuard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'font-awesome/css/font-awesome.min.css';
-
+ 
 export default function CustomApp({ Component, pageProps }) {
   /** 
    useEffect(() => {

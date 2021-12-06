@@ -34,7 +34,7 @@ const styles = {
         ml: [null, null, null, null, null, 6],
       },
     },
-    '@media only screen and (max-width: 1259px)': {
+    '@media only screen and (max-width: 1200px)': {
       position: 'absolute',
       backgroundColor: 'white',
       boxShadow: '0px 11px 30px rgba(51, 83, 145, 0.07)',

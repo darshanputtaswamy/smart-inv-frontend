@@ -62,7 +62,7 @@ const styles = {
     pt: [6, null, null, 0],
     backgroundColor: '#F0F3F8',
     position: 'relative',
-    '@media only screen and (min-width:767px)': {
+    '@media only screen and (min-width:1200px)': {
       ':before': {
         backgroundColor: 'white',
         content: `''`,

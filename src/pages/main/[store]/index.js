@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import Main from 'sections/main';
+import Store from 'sections/Store';
 
-export default function MainPage() {
+export default function StorePage() {
   return (
-        <div>Stores</div>
+        <Store />
   );
 }
 
-MainPage.requireAuth = true
+StorePage.requireAuth = false

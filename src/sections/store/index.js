@@ -1,9 +1,7 @@
 import SEO from 'components/seo';
 import Layout from 'components/layout';
-import StoreCard from './StoreCard';
-import { Container } from '@mui/material';
 
-export default function Main() {
+export default function Store() {
  
     return (
         <Layout>
@@ -11,9 +9,7 @@ export default function Main() {
             title="Startup hosting provider landing"
             description="Collection of free top of the line startup landing templates built using react/ next js. Free to download, simply edit and deploy! Updated weekly!"
           />  
-          <Container>
-             <StoreCard />
-         </Container>
+            Store
       </Layout>
     );
   }
