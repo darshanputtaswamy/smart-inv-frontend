@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { makeStyles } from "@mui/styles";
 import { padding } from 'polished';
 import Store from './Store';
-import CreateFormStepper from './createForm';
+import CreateFormStepper from './CreateFormStepper';
 
 const StoreCard = () => {
     const [uid, setUid] = useState(null)
@@ -14,7 +14,14 @@ const StoreCard = () => {
     const [page, setPage] = useState(0)
     const [stores, setstores] = useState(null)
     const [storesList, setStoresList] = useState([])
-
+    const [activeStep, setActiveStep] = React.useState(0);
+    const handleNext = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+    
+    const handleBack = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
     
     const [open, setOpen] = React.useState(false);
 
@@ -65,11 +72,11 @@ const StoreCard = () => {
          onClose={handleClose}>
          <DialogTitle>Add New Store</DialogTitle>
          <DialogContent>
-           <CreateFormStepper />
+           <CreateFormStepper activeStep={activeStep} handleNext={handleNext} handleBack={handleBack} />
          </DialogContent>
          <DialogActions>
-           <Button onClick={handleClose}>Cancel</Button>
-           <Button onClick={handleClose}>Subscribe</Button>
+           {activeStep == 0 ? (<Button onClick={handleClose}>Cancel</Button>): (<Button onClick={handleBack} >Back</Button>) }
+           {activeStep < 2 ? (<Button variant="contained"  color="primary"  onClick={handleNext}>Next</Button>): activeStep == 2 ? (<Button variant="contained"  color="primary" onClick={handleNext}  >Checkout</Button>): (<Button variant="contained"  color="primary" onClick={handleNext}  >Finish</Button>) }
          </DialogActions>
        </Dialog>
 </>
