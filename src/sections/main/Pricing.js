@@ -2,14 +2,11 @@ import React from 'react'
 import { Card, Grid, Button,CardMedia,CardHeader,Typography,CardContent,CardActionArea  } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import clsx from 'clsx'
-import baby from 'assets/images/baby.svg';
-import upgrade from 'assets/images/upgrade.svg';
-import business_deal from 'assets/images/business_deal.svg';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
+import TableContainer from '@mui/material/TableContainer'; 
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -31,7 +28,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     }
 }))
 
-const Pricing = ({plan, setPlan}) => {
+const Pricing = ({planList, plan, setPlan}) => {
     const classes = useStyles()
 
     return (
@@ -102,68 +99,4 @@ const Pricing = ({plan, setPlan}) => {
     )
 }
 
-const planList = [
-    {
-        title: 'Basic',
-        price: '2,000',
-        logo: baby,
-        feature:[
-             
-                   {key:'Inventory',
-                   value: '250 Items'},
-                   {key:'Registery',
-                   value: '02 statements'},
-                   {key:'Retention',
-                   value:  '3 Days'},
-                   {key:'Users',
-                   value:1},
-                   {key:'Backup',
-                   value: 'No'},
-                   {key:'Email',
-                   value:'Yes'},
-                ]
-    },
-    {
-        title: 'Premium',
-        price: '6,000',
-        logo: upgrade,
-        
-        feature:[
-    
-            {key:'Inventory',
-            value: '250 Items' },
-            {key:'Registery',
-            value: '45 statements'},
-            {key:'Retention',
-            value:  '60 Days'},
-            {key:'Users',
-            value:3},
-            {key:'Backup ',
-            value: 'No'},
-            {key:'Email',
-            value:'Yes'},
-         ]
-    },
-    {
-        title: 'Platinum',
-        price: '10,000',
-        logo: business_deal,
-        
-        feature:[
-  
-            {key:'Inventory',
-            value: '250 Items'},
-            {key:'Registery',
-            value: '90 statements'},
-            {key:'Retention',
-            value: '120 Days'},
-            {key:'Users',
-            value:10},
-            {key:'Backup ',
-            value: 'Yes'},
-            {key:'Email',
-            value:'Yes'},
-         ]
-    },
-]
 export default Pricing

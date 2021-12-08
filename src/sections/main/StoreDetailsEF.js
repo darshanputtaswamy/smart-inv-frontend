@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 const storeTypes = [
   {
@@ -35,6 +36,14 @@ export default function StoreDetailsEF({formState, setFormState }) {
   };
 
   return (
+<>
+    <div className="w-full text-center mb-11">
+    <h3 className="m-0 font-medium">
+        Enter Your Store Details
+    </h3>
+</div>
+    <Paper elevation={4} sx={{display:'flex', justifyContent:'space-around', paddingBottom:'25px'}}> 
+ 
     <Box
       component="form"
       sx={{
@@ -43,10 +52,9 @@ export default function StoreDetailsEF({formState, setFormState }) {
       maxWidth={500}
       noValidate
       autoComplete="off"
-    >
-      <div>
+    > 
  
-
+    
             <Grid container spacing={2}>
                 <Grid item xs={12} xm={12} md={12} >
                 <TextField
@@ -71,7 +79,6 @@ export default function StoreDetailsEF({formState, setFormState }) {
                 <TextField
                         id="name"
                         label="Store Name"
-                        variant="filled"
                         value={formState.name}
                         onChange={handleChange}
                         fullWidth 
@@ -82,7 +89,6 @@ export default function StoreDetailsEF({formState, setFormState }) {
                 <TextField
                         id="gst_number"
                         label="GST Number"   
-                        variant="filled"       
                         value={formState.gst_number}
                         onChange={handleChange}
                         fullWidth 
@@ -93,7 +99,6 @@ export default function StoreDetailsEF({formState, setFormState }) {
                 <TextField
                         id="address"
                         label="Address"
-                        variant="filled"
                         value={formState.address}
                         onChange={handleChange}
                         fullWidth 
@@ -106,7 +111,6 @@ export default function StoreDetailsEF({formState, setFormState }) {
                 <TextField
                         id="pincode"
                         label="PinCode"
-                        variant="filled"
                         value={formState.pincode}
                         onChange={handleChange}
                         fullWidth 
@@ -114,8 +118,10 @@ export default function StoreDetailsEF({formState, setFormState }) {
                         />
                 </Grid>
                 </Grid>
-       
-      </div>
+               
+      
     </Box>
+    </Paper>
+    </>
   );
 }
