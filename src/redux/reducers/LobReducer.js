@@ -27,7 +27,6 @@ const LobReducer = function (state = initialState, action) {
             }
         }
         case GET_PLAN_LIST: {
-            console.log(action.payload)
             return {
                 ...state,
                 planList: [...action.payload],

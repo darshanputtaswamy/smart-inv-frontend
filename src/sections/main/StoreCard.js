@@ -91,7 +91,7 @@ const StoreCard = () => {
         <>
         <Grid container spacing={2}>
         {lobList.map((store,index) => (
-                <Store store={store} />
+                <Store key={index} store={store} />
         ))
         }
             <Grid item xs={12} lg={3} >

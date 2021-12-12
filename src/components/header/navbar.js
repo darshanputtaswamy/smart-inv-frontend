@@ -5,7 +5,6 @@ import { Fragment ,useState } from 'react';
 
 const Navbar = ({ navLinks }) => {
 
-  console.log(navLinks);
 
 
   return (

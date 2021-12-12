@@ -9,7 +9,21 @@ import {AuthProvider} from 'context/AuthContext';
 import {AuthGuard} from 'context/AuthGuard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'nprogress/nprogress.css';
 import { wrapper } from 'redux/reduxStore';
+import Router from 'next/router'
+import NProgress from 'nprogress'
+
+NProgress.configure({ showSpinner: true });
+
+Router.events.on('routeChangeStart', (url) => {
+  console.log(`Loading: ${url}`)
+  NProgress.start()
+})
+
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
+
 
 const  CustomApp = ({ Component, pageProps }) => {
   /** 
@@ -20,7 +34,10 @@ const  CustomApp = ({ Component, pageProps }) => {
    }, []);
    */
 
-  return (<AuthProvider>
+  return (
+  
+      <>
+          <AuthProvider>
             <ToastContainer />
             {Component.requireAuth ? (
                 <AuthGuard>
@@ -31,6 +48,7 @@ const  CustomApp = ({ Component, pageProps }) => {
                 <Component {...pageProps} />
             )}
           </AuthProvider>
+          </>
   );
 }
 

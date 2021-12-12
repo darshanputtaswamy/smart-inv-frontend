@@ -42,7 +42,6 @@ export const getLobDetails = (bid) => (dispatch) => {
 
 export const getPlanList  = ()=> (dispatch) => {
     api.get('/management/plan_template' ).then((res) => {
-        console.log(res.data)
         dispatch({
             type: GET_PLAN_LIST,
             payload: res.data,

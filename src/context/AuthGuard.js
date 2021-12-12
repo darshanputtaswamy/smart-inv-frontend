@@ -9,7 +9,6 @@ export function AuthGuard({ children }) {
 
   useEffect(() => {
     if (!initializing) {
-      console.log('auth is initialized and there is no user')
       //auth is initialized and there is no user
       if (!sessionUser  ) {
         router.push({
