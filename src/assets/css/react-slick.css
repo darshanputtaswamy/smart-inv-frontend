@@ -104,3 +104,12 @@
 .active {
   opacity: 1;
 }
+
+.active-tab {
+    opacity: 1;
+    text-decoration: none;
+    background: #603393;
+    padding: 2px 15px 2px 15px;
+    color: white;
+    border-radius: 5px;
+}

@@ -7,4 +7,4 @@ export default function StorePage() {
   );
 }
 
-StorePage.requireAuth = false
+StorePage.requireAuth = true

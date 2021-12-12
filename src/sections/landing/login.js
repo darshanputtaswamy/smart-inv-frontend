@@ -40,8 +40,6 @@ const Login = ({showForm}) => {
 
  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(mobile);
-    console.log(password);
     if(!mobile){
         toast.error("mobile number cannot be null");
         return 

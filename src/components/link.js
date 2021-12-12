@@ -5,6 +5,8 @@ import { Link as MenuLink } from 'react-scroll';
 import { IoIosArrowForward } from 'react-icons/io';
 import { keyframes } from '@emotion/react';
 
+
+
 export function NavLink({ path, label, children, ...rest }) {
   return (
     <MenuLink

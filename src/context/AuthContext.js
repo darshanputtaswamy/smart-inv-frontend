@@ -14,7 +14,6 @@ const isValidToken = (accessToken) => {
 
     const decodedToken = jwtDecode(accessToken)
     const currentTime = Date.now() / 1000
-    console.log(decodedToken)
     return decodedToken.exp > currentTime
 }
 
@@ -46,7 +45,7 @@ export const AuthProvider = ({children}) =>{
     // Register user;
     const register = async (newuser) =>{
         setInitializing(true);
-        const response = await api.post('/api/v1.0/user', {
+        const response = await api.post('/user', {
             phone:newuser.mobile,
             username:newuser.username,
             password:newuser.password
@@ -60,7 +59,7 @@ export const AuthProvider = ({children}) =>{
     //Login User
     const login = async ({mobile,password}) =>{
         setInitializing(true);
-        const response = await api.post('/api/v1.0/user/login', {
+        const response = await api.post('/user/login', {
             phone:mobile,
             password:password,
         }).catch(function (error) {
@@ -94,7 +93,7 @@ export const AuthProvider = ({children}) =>{
         if(sessionUser){
             console.log(sessionUser)
             setInitializing(true);
-            const response = await api.post('/api/v1.0/user/verification', {
+            const response = await api.post('/user/verification', {
                 phone:sessionUser.phone,
                 verification_code:verification_code,
             })

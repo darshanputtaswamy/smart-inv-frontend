@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React, {useContext, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -14,9 +14,7 @@ import Authcontext from 'context/AuthContext';
 
 
 export default function CheckOut({ formState, selectedPlan }) {
-  console.log(selectedPlan);
-  const { sessionUser } = React.useContext(Authcontext);
-  console.log(sessionUser);
+  const { sessionUser } = useContext(Authcontext);
   return (
 
     <>
@@ -49,19 +47,28 @@ export default function CheckOut({ formState, selectedPlan }) {
                       <TableCell component="th" scope="row">
                         Plan Name
                       </TableCell>
-                      <TableCell align="right">{selectedPlan[0].title}</TableCell>
+                      <TableCell align="right">{selectedPlan.plan_name}</TableCell>
                     </TableRow>
-                    {selectedPlan[0].feature.map((row) => (
-                      <TableRow
-                        key={row.key}
-                       
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.key}
-                        </TableCell>
-                        <TableCell align="right">{row.value}</TableCell>
-                      </TableRow>
-                    ))}
+                    <TableRow>
+                        <TableCell component="th" scope="row">Registery</TableCell><TableCell align="right">{selectedPlan.registory_limit + ' Statements'}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell component="th" scope="row">Retention</TableCell><TableCell align="right">{selectedPlan.retention_limit + ' Days'}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell component="th" scope="row">Plan Period</TableCell><TableCell align="right">{selectedPlan.plan_period + ' Days'}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell component="th" scope="row">Inventory</TableCell><TableCell align="right">{selectedPlan.particular_limit + ' Items'} </TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell component="th" scope="row">Email Notification</TableCell><TableCell align="right">Yes</TableCell>
+                        </TableRow>
+                        
+                        <TableRow>
+                        <TableCell component="th" scope="row">Backup</TableCell><TableCell align="right">Yes</TableCell>
+                        </TableRow>
+                                            
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -215,7 +222,7 @@ export default function CheckOut({ formState, selectedPlan }) {
                         Cost
                         </Typography>
                       </TableCell>
-                      <TableCell align="right"><Typography variant="h7" component="p"> ₹{parseFloat(selectedPlan[0].price.replace(',', ''))}/Year</Typography></TableCell>
+                      <TableCell align="right"><Typography variant="h7" component="p"> ₹{parseFloat(selectedPlan.price.replace(',', ''))}/Year</Typography></TableCell>
                     </TableRow>
                     <TableRow
                      
@@ -249,7 +256,7 @@ export default function CheckOut({ formState, selectedPlan }) {
                       </TableCell>
                       <TableCell align="right">
                       <Typography variant="h5" component="p">
-                      {`₹` + parseFloat(selectedPlan[0].price.replace(',', '')) * 1.20 + `/ Year`}
+                      {`₹` + parseFloat(selectedPlan.price.replace(',', '')) * 1.20 + `/ Year`}
                         </Typography>
                         
                         </TableCell>

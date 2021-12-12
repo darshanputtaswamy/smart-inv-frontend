@@ -9,8 +9,9 @@ import {AuthProvider} from 'context/AuthContext';
 import {AuthGuard} from 'context/AuthGuard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
-export default function CustomApp({ Component, pageProps }) {
+import { wrapper } from 'redux/reduxStore';
+
+const  CustomApp = ({ Component, pageProps }) => {
   /** 
    useEffect(() => {
      initGA();
@@ -32,3 +33,5 @@ export default function CustomApp({ Component, pageProps }) {
           </AuthProvider>
   );
 }
+
+export default wrapper.withRedux(CustomApp)

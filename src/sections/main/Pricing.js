@@ -11,7 +11,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
+
 const useStyles = makeStyles(({ palette, ...theme }) => ({
+
     pricingCard: {
         borderRadius: 20,
         '& h5': {
@@ -29,6 +31,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
 }))
 
 const Pricing = ({planList, plan, setPlan}) => {
+
     const classes = useStyles()
 
     return (
@@ -42,16 +45,16 @@ const Pricing = ({planList, plan, setPlan}) => {
                 <Grid container spacing={2}>
                     {planList.map((item, ind) => (
                         <Grid
-                            key={item.title}
+                            key={item.plan_id}
                             item
                             lg={4}
                             md={4}
                             sm={4}
                             xs={12}
-                            onClick={(e) => setPlan(item.title)}
+                            onClick={(e) => setPlan(item.plan_id)}
                         >
                      <Card
-                                elevation={plan == item.title ? 20 : 1}
+                                elevation={plan == item.plan_id ? 20 : 1}
                                 className={clsx(
                                     'card text-center p-sm-24',
                                     classes.pricingCard
@@ -59,33 +62,36 @@ const Pricing = ({planList, plan, setPlan}) => {
                             >
                         <CardHeader
                         title={<><Typography variant="h4" color="textSecondary" component="p">
-                                {item.title }   {plan == item.title ? <CheckCircleIcon /> : null } 
+                                {item.plan_name }   {plan == item.plan_id ? <CheckCircleIcon /> : null } 
                                 </Typography> 
                                 <small>₹{item.price} / Year </small> 
                                
                                </>
-                        }  />
-                           <CardMedia
-                                component="img"
-                                height="100"
-                                image={item.logo}
-                                alt={item.title}
-                            />
+                        }  /> 
                         <CardContent className={classes.PricingFeature}>
                            <TableContainer component={Paper}>
                                     <Table aria-label="simple table">
                                         <TableBody>
-                                        { item.feature.map((row) => (
-                                            <TableRow
-                                            key={row.key}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                            >
-                                            <TableCell component="th" scope="row">
-                                                {row.key}
-                                            </TableCell>
-                                            <TableCell align="right">{row.value}</TableCell>
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Registery</TableCell><TableCell align="right">{item.registory_limit + ' Statements'}</TableCell>
                                             </TableRow>
-                                        ))}
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Retention</TableCell><TableCell align="right">{item.retention_limit + ' Days'}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Plan Period</TableCell><TableCell align="right">{item.plan_period + ' Days'}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Inventory</TableCell><TableCell align="right">{item.particular_limit + ' Items'} </TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Email Notification</TableCell><TableCell align="right">Yes</TableCell>
+                                            </TableRow>
+                                            
+                                            <TableRow>
+                                            <TableCell component="th" scope="row">Backup</TableCell><TableCell align="right">Yes</TableCell>
+                                            </TableRow>
+                                            
                                         </TableBody>
                                     </Table>
                            </TableContainer>
@@ -100,3 +106,4 @@ const Pricing = ({planList, plan, setPlan}) => {
 }
 
 export default Pricing
+

@@ -29,7 +29,7 @@ export const NextLinkComposed = React.forwardRef(function NextLinkComposed(props
 // https://nextjs.org/docs/#with-link
 const MuiNextLink = React.forwardRef(function Link(props, ref) {
   const {
-    activeClassName = 'active',
+    activeClassName = 'active-tab',
     as: linkAs,
     className: classNameProps,
     href,
@@ -40,8 +40,9 @@ const MuiNextLink = React.forwardRef(function Link(props, ref) {
 
   const router = useRouter();
   const pathname = typeof href === 'string' ? href : href.pathname;
+
   const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === pathname && activeClassName,
+    [activeClassName]: (router.pathname === pathname || ( router.pathname === '/main' && pathname == 'main' ) ) && activeClassName,
   });
 
   const isExternal =

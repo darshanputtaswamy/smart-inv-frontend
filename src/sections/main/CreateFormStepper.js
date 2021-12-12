@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, Theme, createStyles } 
         from '@mui/styles';
 import Stepper from '@mui/material/Stepper';
@@ -14,6 +14,8 @@ import business_deal from 'assets/images/business_deal.svg';
 import Pricing from './Pricing';
 import StoreDetailsEF from './StoreDetailsEF';
 import CheckOut from './Checkout';
+
+
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -38,88 +40,9 @@ const useStyles = makeStyles((theme) =>
   }),
 );
   
-
-
-const planList = [
-  {
-      title: 'Basic',
-      price: '2,000',
-      logo: baby,
-      feature:[
-           
-                 {key:'Inventory',
-                 value: '250 Items'},
-                 {key:'Registery',
-                 value: '02 statements'},
-                 {key:'Retention',
-                 value:  '3 Days'},
-                 {key:'Users',
-                 value:1},
-                 {key:'Backup',
-                 value: 'No'},
-                 {key:'Email',
-                 value:'Yes'},
-              ]
-  },
-  {
-      title: 'Premium',
-      price: '6,000',
-      logo: upgrade,
-      
-      feature:[
   
-          {key:'Inventory',
-          value: '250 Items' },
-          {key:'Registery',
-          value: '45 statements'},
-          {key:'Retention',
-          value:  '60 Days'},
-          {key:'Users',
-          value:3},
-          {key:'Backup ',
-          value: 'No'},
-          {key:'Email',
-          value:'Yes'},
-       ]
-  },
-  {
-      title: 'Platinum',
-      price: '10,000',
-      logo: business_deal,
-      
-      feature:[
-
-          {key:'Inventory',
-          value: '250 Items'},
-          {key:'Registery',
-          value: '90 statements'},
-          {key:'Retention',
-          value: '120 Days'},
-          {key:'Users',
-          value:10},
-          {key:'Backup ',
-          value: 'Yes'},
-          {key:'Email',
-          value:'Yes'},
-       ]
-  },
-]
-  
-export default function CreateFormStepper({activeStep, handleNext,handleBack }) {
-
-
+export default function CreateFormStepper({activeStep, planList,plan,setPlan,formState,setFormState }) {
   const classes = useStyles();
-  const steps = getSteps();
-  const [ plan, setPlan ] = React.useState('Premium');
-
-  const [ formState, setFormState ] = React.useState({
-    name:'',
-    type:'BAR',
-    address:'',
-    pincode:'',
-    owner:'',
-    gst_number:'',
-  });
 
   function getSteps() {
     return [<b style={{color:'purple'}}>Pick Your Plan</b>, 
@@ -127,7 +50,7 @@ export default function CreateFormStepper({activeStep, handleNext,handleBack }) 
     <b style={{color:'purple'}}>Checkout Summary</b>,
     <b style={{color:'purple'}}>Payment</b>];
   }
-  
+  const steps = getSteps(); 
   
   function getStepContent(step) {
     switch (step) {
@@ -141,16 +64,13 @@ export default function CreateFormStepper({activeStep, handleNext,handleBack }) 
         );
       case 2:
         return (
-         <CheckOut  formState={formState}  selectedPlan={planList.filter((i)=>{ return i.title == plan})}   />
+         <CheckOut  formState={formState}  selectedPlan={planList.filter((i)=>{ return i.plan_id == plan})[0]}   />
         );
       default:
         return 'Unknown step';
     }
   }
-
-  
-
-   
+ 
   
   return (
     <div className={classes.root}>

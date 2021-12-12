@@ -6,13 +6,12 @@ const Store = ({store}) => {
     const router = useRouter();
 
 
-    console.log(store)
     return (
         <Grid item xs={12} lg={6} >
                 <Card elevation={3}>
                     <CardHeader
                         action={
-                            <IconButton onClick={(e)=>{console.log(store.id);    router.push("/main/"+store.id)}}>
+                            <IconButton onClick={(e)=>{ router.push("/main/"+store.bid)}}>
                                 <ViewDayOutlined />
                             </IconButton>
                         }
@@ -21,7 +20,7 @@ const Store = ({store}) => {
                         />
                        <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            {store.address}
+                            {`${store.address}  -  ${store.postal_code}`}
                            </Typography>
                         </CardContent>
              </Card>

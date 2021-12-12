@@ -17,11 +17,7 @@ const storeTypes = [
   {
     value: 'RetailsOutlets',
     label: 'Retails Outlets',
-  },
-  {
-    value: 'Other',
-    label: 'Other',
-  },
+  }
 ];
 
 export default function StoreDetailsEF({formState, setFormState }) {
@@ -31,8 +27,6 @@ export default function StoreDetailsEF({formState, setFormState }) {
             [event.target.id]:event.target.value
         }});
         
-        console.log(formState);
-        console.log(event);
   };
 
   return (

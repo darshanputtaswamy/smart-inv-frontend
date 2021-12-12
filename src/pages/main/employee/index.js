@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import Employee from 'sections/employee';
 
-export default function MainPage() {
+export default function EmpoyleePage() {
   return (
         <Employee />
   );
 }
 
-MainPage.requireAuth = true
+EmpoyleePage.requireAuth = true

@@ -8,7 +8,7 @@ import Footer from './footer/footer';
 import Authcontext from 'context/AuthContext';
 import { useRouter } from "next/router"
 import * as React from 'react';
-
+import Conatiner from '@mui/material/Container';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
             main:'#2a0a4e',
           },
           secondary: {
-            main:'#FFC059',
+            main:'#c6acc9',
           },
           text:{
             primary:'#343D48',
@@ -85,17 +85,18 @@ export default function Layout({ children }) {
           </Fragment>
       )}
         {(router.route != '/') && (
-          
       <ThemeProvider theme={theme}>
           <Fragment>
           <Header/>
           <main>
+          <Conatiner>
             {children}
+          </Conatiner>
           </main>
-          {(router.route === '/main') ? <Footer /> : null }
+          { (router.route.indexOf('/main/[store]') > -1 ) && ( <Footer />)}
           </Fragment>
         </ThemeProvider>
-      )}
+      )} 
     </Fragment>
   );
 }
