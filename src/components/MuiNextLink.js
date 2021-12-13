@@ -57,7 +57,7 @@ const MuiNextLink = React.forwardRef(function Link(props, ref) {
   }
 
   if (noLinkStyle) {
-    return <NextLinkComposed className={className} ref={ref} to={href} {...other} />;
+    return <NextLinkComposed ref={ref} to={href} {...other} />;
   }
 
   return (
