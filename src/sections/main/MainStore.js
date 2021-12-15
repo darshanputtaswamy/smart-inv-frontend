@@ -2,7 +2,7 @@ import { ViewDayOutlined } from '@mui/icons-material';
 import { Grid, Card, CardHeader, CardActions, CardContent,CardActionArea, Button,Typography,IconButton } from '@mui/material'; 
 import { useRouter } from "next/router"
 
-const Store = ({store}) => { 
+const MainStore = ({store}) => { 
     const router = useRouter();
 
 
@@ -26,4 +26,4 @@ const Store = ({store}) => {
     )
 }
 
-export default Store
+export default MainStore

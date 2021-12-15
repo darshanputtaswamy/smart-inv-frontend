@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Store from 'sections/Store';
+import Store from 'sections/storeDetails';
 import SEO from 'components/seo';
 import Layout from 'components/layout';
 import Breadcrumb  from 'components/breadcrumb/breadcrumb';

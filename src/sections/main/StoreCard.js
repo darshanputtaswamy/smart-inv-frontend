@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
-import { Grid, Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions, Button } from '@mui/material';
-import Store from './Store';
+import { Grid, Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions, Button,Stack } from '@mui/material';
+import Store from './MainStore';
 import CreateFormStepper from './CreateFormStepper';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -89,15 +89,17 @@ const StoreCard = () => {
 
     return (
         <>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
         <Grid  item xs={12} >
-        <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
-            New Store
-        </Button>
+        <Stack direction="row" justifyContent="end">
+          <Button raised="true"  variant="contained"  color="primary" >
+            Add Store
+          </Button>
+      </Stack>
+
         </Grid>
          <Grid  item xs={12} lg={12}>
          <Grid container spacing={1}>
-
         {lobList.map((store,index) => (
               <Grid  key={index} item xs={12} lg={6}>
                 <Store store={store} />
