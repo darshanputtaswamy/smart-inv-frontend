@@ -7,7 +7,6 @@ const Store = ({store}) => {
 
 
     return (
-        <Grid item xs={12} lg={6} >
                 <Card elevation={3}>
                     <CardHeader
                         action={
@@ -24,7 +23,6 @@ const Store = ({store}) => {
                            </Typography>
                         </CardContent>
              </Card>
-        </Grid>
     )
 }
 

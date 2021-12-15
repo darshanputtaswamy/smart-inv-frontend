@@ -22,9 +22,9 @@ const StoreCard = () => {
     }, [dispatch])
 
      const [ plan, setPlan ] = useState(4);
-    const [uid, setUid] = useState(null)
-    const [rowsPerPage, setRowsPerPage] = useState(10)
-    const [page, setPage] = useState(0)
+     const [uid, setUid] = useState(null)
+     const [rowsPerPage, setRowsPerPage] = useState(10)
+     const [page, setPage] = useState(0)
      const [activeStep, setActiveStep] = useState(0);
      const [ formState, setFormState ] = useState({
       name:'',
@@ -90,15 +90,24 @@ const StoreCard = () => {
     return (
         <>
         <Grid container spacing={2}>
+        <Grid  item xs={12} >
+        <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
+            New Store
+        </Button>
+        </Grid>
+         <Grid  item xs={12} lg={12}>
+         <Grid container spacing={1}>
+
         {lobList.map((store,index) => (
-                <Store key={index} store={store} />
+              <Grid  key={index} item xs={12} lg={6}>
+                <Store store={store} />
+              </Grid>
         ))
-        }
-            <Grid item xs={12} lg={3} >
-                <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
-                    New Store
-                </Button>
-            </Grid>
+
+        } 
+                </Grid>
+
+        </Grid>
         </Grid>
          <Dialog 
          fullWidth={true}

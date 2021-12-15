@@ -2,14 +2,15 @@ import {
     GET_LOB_LIST,
     GET_LOB_DETAILS,
     GET_PLAN_LIST,
-} from '../actions/LobActions';
+ } from '../actions/LobActions';
 
+ 
 
 const initialState = {
     lobList: [],
     planList:[],
     lobDetails:{},
-}
+ }
 
 
 const LobReducer = function (state = initialState, action) {
@@ -33,6 +34,8 @@ const LobReducer = function (state = initialState, action) {
             }
         }
 
+     
+       
         default: {
             return {
                 ...state,

@@ -11,7 +11,6 @@ import { makeStyles} from '@mui/styles'
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => { 
-  console.log(theme);
    return {
     root: {
         color: '#c6acc9',
@@ -37,11 +36,9 @@ export default function Footer() {
 
   let x= router.pathname.split('/')
   let tabIndex;
-  console.log(x.length);
   if (x.length == 2){
     tabIndex=0
   }else{
-    console.log(x)
     tabIndex=menuItems.indexOf(x[x.length-1])
 
   }
@@ -52,11 +49,9 @@ export default function Footer() {
 
     ref.current.ownerDocument.body.scrollTop = 0;
     let x= router.pathname.split('/')
-    console.log(x.length);
     if (x.length == 3){
       setValue(0)
     }else{
-      console.log(x)
       setValue(menuItems.indexOf(x[x.length-1]))
      }
 
