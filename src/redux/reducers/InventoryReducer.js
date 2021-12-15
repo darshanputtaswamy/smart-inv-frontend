@@ -1,5 +1,4 @@
-import Inventory from 'sections/inventory';
-import { 
+ import { 
     GET_LOB_INVENTORY,
     CREATE_LOB_ONE_INVENTORY_ITEM,
     UPDATE_LOB_ONE_INVENTORY_ITEM,
