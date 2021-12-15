@@ -12,7 +12,6 @@ const initialState = {
     statement:[],
 }
 
-
 const StatementReducer = function (state = initialState, action) {
     switch (action.type) {  
         case GET_STATEMENT:{
