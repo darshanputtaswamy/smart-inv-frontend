@@ -20,7 +20,7 @@ import api from '/api.js'
 export const GET_LOB_LIST = 'GET_LOB_LIST'
 export const GET_LOB_DETAILS = 'GET_LOB_DETAILS'
 export const GET_PLAN_LIST = 'GET_PLAN_LIST'
-
+export const UPDATE_LOB_DETAILS = 'UPDATE_LOB_DETAILS'
 
 export const getLobList = () => (dispatch) => {
     api.get('/lob').then((res) => {
@@ -36,6 +36,23 @@ export const getLobDetails = (bid) => (dispatch) => {
         api.get('/lob/'+bid, ).then((res) => {
             dispatch({
                 type: GET_LOB_DETAILS,
+                payload: res.data,
+            })
+        })
+    }else{
+        dispatch({
+            type: 'PENDING',
+        })
+    }
+}
+
+
+export const updateLobDetails = (bid,newData)=> (dispatch) => {
+    if(bid){
+        api.put('/lob/'+bid, newData ).then((res) => {
+            console.log(res.data)
+            dispatch({
+                type: UPDATE_LOB_DETAILS,
                 payload: res.data,
             })
         })

@@ -2,6 +2,7 @@ import {
     GET_LOB_LIST,
     GET_LOB_DETAILS,
     GET_PLAN_LIST,
+    UPDATE_LOB_DETAILS,
  } from '../actions/LobActions';
 
  
@@ -22,6 +23,12 @@ const LobReducer = function (state = initialState, action) {
             }
         }
         case GET_LOB_DETAILS: {
+            return {
+                ...state,
+                lobDetails: {...action.payload},
+            }
+        }
+        case UPDATE_LOB_DETAILS:{
             return {
                 ...state,
                 lobDetails: {...action.payload},

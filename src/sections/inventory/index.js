@@ -50,16 +50,7 @@ export default function Inventory() {
           grouping: true,
           exportButton: true
         }}
-        actions={[
-          {
-            icon: "add_box",
-            tooltip: "my tooltip",
-            position: "toolbar",
-            onClick: () => {
-              console.log("clicked");
-            }
-          }
-        ]}
+    
         editable={{
           onRowAdd: newData => 
             new Promise((resolve, reject) => {

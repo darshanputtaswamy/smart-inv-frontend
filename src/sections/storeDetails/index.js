@@ -14,6 +14,7 @@ import {
     CardContent,
     Stack
 } from '@mui/material'
+import FormDialog from './EditStoreDetails';
 
 const Store = ({Details}) => {
 
@@ -24,14 +25,11 @@ const Store = ({Details}) => {
       <Grid container spacing={2}>
       <Grid  item xs={12}  >
       <Stack direction="row" justifyContent="end">
-          <Button raised="true"  variant="contained"  color="primary" >
-                Edit Details
-          </Button>
+          <FormDialog storeObj={Details[0]}/>
       </Stack>
       </Grid>
 
-
-        <Grid  key={1} item  xs={12} lg={6} >
+        <Grid  item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
                 <CardHeader title={'Store Details'} />
@@ -83,7 +81,7 @@ const Store = ({Details}) => {
                   </CardContent>
                 </Card>
         </Grid>
-        <Grid  key={1} item  xs={12} lg={6} >
+        <Grid item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
                 <CardHeader title={'Owner Details'} />
@@ -135,7 +133,7 @@ const Store = ({Details}) => {
                 </Card>
         </Grid>
 
-        <Grid item key={2}  xs={12} lg={6}>
+        <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
               <CardHeader title={'Subscription Details'} />
                   <CardContent>
@@ -186,7 +184,7 @@ const Store = ({Details}) => {
                   </CardContent>
               </Card>
         </Grid>
-        <Grid item key={2}  xs={12} lg={6}>
+        <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
               <CardHeader title={'Plan Details'} />
                   <CardContent>

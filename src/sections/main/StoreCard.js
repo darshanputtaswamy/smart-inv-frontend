@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { Grid, Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions, Button,Stack } from '@mui/material';
+import { Grid, Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions, Button , Stack} from '@mui/material';
 import Store from './MainStore';
 import CreateFormStepper from './CreateFormStepper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -92,11 +92,10 @@ const StoreCard = () => {
         <Grid container spacing={1}>
         <Grid  item xs={12} >
         <Stack direction="row" justifyContent="end">
-          <Button raised="true"  variant="contained"  color="primary" >
-            Add Store
-          </Button>
+        <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
+            New Store
+        </Button>
       </Stack>
-
         </Grid>
          <Grid  item xs={12} lg={12}>
          <Grid container spacing={1}>

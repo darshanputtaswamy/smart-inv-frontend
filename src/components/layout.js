@@ -87,13 +87,12 @@ export default function Layout({ children }) {
         {(router.route != '/') && (
       <ThemeProvider theme={theme}>
           <Header/>
-          <main>
+          <main >
           <Conatiner maxWidth={false}>
             {children}
           </Conatiner>
           </main>
           { (router.route.indexOf('/main/[store]') > -1 ) && ( <Footer />)}
-
         </ThemeProvider>
       )} 
     </Fragment>

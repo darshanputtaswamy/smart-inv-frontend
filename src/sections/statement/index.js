@@ -1,13 +1,10 @@
 import React, { useState, useEffect,useRef } from 'react'
 import MaterialTable from "@material-table/core";
-import Grid from '@mui/material/Grid'; 
-import {
-  
+import { Grid, Button } from '@mui/material'; 
+import {  
 getStatementRegistory,
 addRowInStatementRegistory,
-updateRowInStatementRegistory,
 deleteRowInStatementRegistory
-
 } from 'redux/actions/StatementActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
@@ -32,7 +29,6 @@ const columns = [
 ];
 
  
-
 export default function Statement() {
   const { registory = [] } = useSelector((state) => state.store)
   const dispatch = useDispatch();
@@ -58,6 +54,16 @@ useEffect(() => {
       <MaterialTable
         title="Statement Registory"
         data={registory}
+        actions={[
+          {
+            icon: "add_box",
+            tooltip: "Add New Statement",
+            position: "toolbar",
+            onClick: () => {
+              console.log("clicked");
+            }
+          }
+        ]}
         columns={columns}
         options={{
           exportButton: true
