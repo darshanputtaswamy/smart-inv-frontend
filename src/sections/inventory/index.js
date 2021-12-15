@@ -1,19 +1,32 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import MaterialTable from "@material-table/core";
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import Typography  from '@mui/material/Typography';
+
+const options = ['Add New Item', 'Reset Inventory' ];
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'itype', headerName: 'Perticular Type', width: 150 },
-  { field: 'name', headerName: 'Perticular Name', width: 150 },
+  { field: 'id', title: 'ID', flex: 0.5,},
+  { field: 'itype', title: 'Perticular Type', flex: 1, },
+  { field: 'name', title: 'Perticular Name',flex: 1,  },
   {
     field: 'quantity',
-    headerName: 'Quantity',
-    width: 90,
+    title: 'Quantity',
+    flex: 0.5,
   },
   {
     field: 'price',
-    headerName: 'Price',
-    width: 90,
+    title: 'Price',
+    flex: 0.5,
   }
 ];
 
@@ -43,15 +56,101 @@ const rows = [
 ]
 
 export default function Inventory() {
+    const [open, setOpen] = React.useState(false);
+    const anchorRef = React.useRef(null);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
+  
+    const handleClick = () => {
+      console.info(`You clicked ${options[selectedIndex]}`);
+    };
+  
+    const handleMenuItemClick = (event, index) => {
+      setSelectedIndex(index);
+      setOpen(false);
+    };
+  
+    const handleToggle = () => {
+      setOpen((prevOpen) => !prevOpen);
+    };
+  
+    const handleClose = (event) => {
+      if (anchorRef.current && anchorRef.current.contains(event.target)) {
+        return;
+      }
+      setOpen(false);
+    };
+
   return (
-    <div style={{ height: 500, width: '100%' }}>
-      <DataGrid
+
+<Grid container spacing={2} style={{ marginTop:'2px'}} >
+
+  <Grid item xs={12} >
+      <Paper style={{ display:'flex', direction:'column'}}> 
+      <Grid container justifyContent="flex-start">
+            <Typography variant="h4" component="h5" style={{padding:'2px'}}>
+                Inventory
+            </Typography>
+       </Grid>
+      <Grid container justifyContent="flex-end">
+  <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+        <Button
+          size="small"
+          aria-controls={open ? 'split-button-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-label="select merge strategy"
+          aria-haspopup="menu"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+        style={{zIndex:3}}
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList id="split-button-menu">
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      selected={index === selectedIndex}
+                      onClick={(event) => handleMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+      </Grid>
+      </Paper>
+  </Grid>
+  <Grid item xs={12}>
+  <div style={{ height: '70Vh', width: '100%' }}>
+      <MaterialTable
         rows={rows}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
       />
     </div>
+  </Grid>
+</Grid>
+    
   );
 }

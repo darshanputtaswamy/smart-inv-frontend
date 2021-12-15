@@ -89,7 +89,7 @@ export default function Layout({ children }) {
           <Fragment>
           <Header/>
           <main>
-          <Conatiner>
+          <Conatiner maxWidth={false}>
             {children}
           </Conatiner>
           </main>
