@@ -13,13 +13,14 @@ import api from '/api.js'
 
 
 export const GET_STATEMENT_REGISTORY_RECORDS = 'GET_STATEMENT_REGISTORY_RECORDS'
+export const GET_STATEMENT_REGISTORY_RECORD_BY_ID = 'GET_STATEMENT_REGISTORY_RECORD_BY_ID'
 export const CREATE_STATEMENT_REGISTORY_RECORD = 'CREATE_STATEMENT_REGISTORY_RECORD'
 export const UPDATE_STATEMENT_REGISTORY_RECORD = 'UPDATE_STATEMENT_REGISTORY_RECORD'
 export const DELETE_STATEMENT_REGISTORY_RECORD = 'DELETE_STATEMENT_REGISTORY_RECORD'
 export const GET_STATEMENT = 'GET_STATEMENT'
- export const UPDATE_STATEMENT_RECORD = 'GET_STATEMENT_RECORD'
+export const UPDATE_STATEMENT_RECORD = 'GET_STATEMENT_RECORD'
 
-export const getStatementRegistory  = (bid)=> (dispatch) => {
+export const getStatementRegistory = (bid) => (dispatch) => {
     api.get(`/lob/${bid}/statement_registery`).then((res) => {
         console.log(res.data)
         dispatch({
@@ -28,7 +29,15 @@ export const getStatementRegistory  = (bid)=> (dispatch) => {
         })
     })
 }
-export const addRowInStatementRegistory  = (bid,data)=> (dispatch) => {
+
+export const getStatementRegistoryById = (bid, sid) => (dispatch) => {
+    dispatch({
+        type: GET_STATEMENT_REGISTORY_RECORD_BY_ID,
+        payload: { bid, sid },
+    })
+}
+
+export const addRowInStatementRegistory = (bid, data) => (dispatch) => {
     api.post(`/lob/${bid}/statement_registery`, data).then((res) => {
         console.log(res.data)
         dispatch({
@@ -38,9 +47,8 @@ export const addRowInStatementRegistory  = (bid,data)=> (dispatch) => {
     })
 }
 
-export const updateRowInStatementRegistory  = (bid,newData,oldDate)=> (dispatch) => {
-    api.put(`/lob/${bid}/statement_registery/${newData.sid}`, newData).then((res) => {
-        console.log(res.data)
+export const updateRowInStatementRegistory = (bid, newData, oldDate) => async (dispatch) => {
+    return api.put(`/lob/${bid}/statement_registery/${newData.sid}`, newData).then((res) => {
         dispatch({
             type: UPDATE_STATEMENT_REGISTORY_RECORD,
             payload: res.data,
@@ -49,7 +57,7 @@ export const updateRowInStatementRegistory  = (bid,newData,oldDate)=> (dispatch)
 }
 
 
-export const deleteRowInStatementRegistory  = (bid,oldDate)=> (dispatch) => {
+export const deleteRowInStatementRegistory = (bid, oldDate) => (dispatch) => {
     api.delete(`/lob/${bid}/statement_registery/${oldDate.sid}`).then((res) => {
         dispatch({
             type: DELETE_STATEMENT_REGISTORY_RECORD,
@@ -58,9 +66,9 @@ export const deleteRowInStatementRegistory  = (bid,oldDate)=> (dispatch) => {
     })
 }
 
- 
 
-export const getStatement = (bid,sid)=> (dispatch) => {
+
+export const getStatement = (bid, sid) => (dispatch) => {
     api.get(`/lob/${bid}/statement/${sid}`).then((res) => {
         console.log(res.data)
         dispatch({
@@ -70,13 +78,23 @@ export const getStatement = (bid,sid)=> (dispatch) => {
     })
 }
 
+export const updateRowInStatement = (bid, newData, oldData) => (dispatch) => {
+    let payload = {
+        id: newData.id,
+        open: newData.open,
+        received: newData.received,
+        closed: newData.closed,
+        actual_total: newData.actual_total
+    }
 
-export const updateRowInStatement = (bid,sid,newData,oldDate)=> (dispatch) => {
-    api.put(`/lob/${bid}/statement/${sid}/${newData.id}`, newData).then((res) => {
+    api.put(`/lob/${bid}/statement/${newData.sid}/${newData.id}`, payload).then((res) => {
         console.log(res.data)
         dispatch({
             type: UPDATE_STATEMENT_RECORD,
-            payload: res.data,
+            payload: {
+                newData: res.data,
+                oldData: oldData
+            }
         })
     })
 }

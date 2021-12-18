@@ -9,6 +9,7 @@ import {
 } from 'redux/actions/LobActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
+import Paper from '@mui/material/Paper';
 
 
 
@@ -29,8 +30,9 @@ export default function InventoryPage() {
            description="Collection of free top of the line startup landing templates built using react/ next js. Free to download, simply edit and deploy! Updated weekly!"
          />  
          <Breadcrumb routeSegments={[{ name: lobDetails.bname , path:`/main/${store}`}, { name: 'Inventory' , path:`/main/${store}/inventory`} ]} currentRouteName={lobDetails.bname} />
-
-         <Inventory />
+         <Paper sx={{marginTop:'5px', padding:'10px', minHeight:'80vh', overflow:'scroll'}} elevation={8} >
+         <Inventory/>
+         </Paper>
      </Layout>
   );
 }

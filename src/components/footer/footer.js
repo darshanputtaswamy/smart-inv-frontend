@@ -73,7 +73,7 @@ export default function Footer() {
         >
           <BottomNavigationAction className={classes.root}  label="Home" icon={<CottageRoundedIcon />} />
           <BottomNavigationAction className={classes.root}  label="Inventory" icon={<BallotRoundedIcon />} />
-          <BottomNavigationAction className={classes.root}  label="Statements" icon={<AutoStoriesRoundedIcon />} />
+          <BottomNavigationAction className={classes.root}  label="Registry" icon={<AutoStoriesRoundedIcon />} />
           <BottomNavigationAction className={classes.root}  label="Subscription" icon={<LoyaltyRoundedIcon />} />
 
         </BottomNavigation>

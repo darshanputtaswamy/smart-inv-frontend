@@ -1,6 +1,6 @@
 import React, { useState, useEffect,useRef } from 'react'
 import MaterialTable from "@material-table/core";
-import Grid from '@mui/material/Grid'; 
+import {Grid,Button,Paper} from '@mui/material'; 
 import {
   getInventoryList,
   addRowInInventory,
@@ -50,7 +50,9 @@ export default function Inventory() {
           grouping: true,
           exportButton: true
         }}
-    
+        components={{
+          Container: (props) => <Paper {...props}  />
+        }}
         editable={{
           onRowAdd: newData => 
             new Promise((resolve, reject) => {

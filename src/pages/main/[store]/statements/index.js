@@ -3,15 +3,16 @@ import Store from 'sections/storeDetails';
 import SEO from 'components/seo';
 import Layout from 'components/layout';
 import Breadcrumb  from 'components/breadcrumb/breadcrumb';
-import Statement from 'sections/statement';
+import Registry from 'sections/registry';
 import {
   getLobDetails
 } from 'redux/actions/LobActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
+import Paper from '@mui/material/Paper';
 
 
-export default function StatementPage() {
+export default function RegistryPage() {
   const { lobDetails = {} } = useSelector((state) => state.lob)
   const dispatch = useDispatch();
   const router = useRouter();
@@ -28,10 +29,12 @@ export default function StatementPage() {
         title="Startup hosting provider landing"
         description="Collection of free top of the line startup landing templates built using react/ next js. Free to download, simply edit and deploy! Updated weekly!"
       />  
-         <Breadcrumb routeSegments={[{ name: lobDetails.bname , path:`/main/${store}`}, { name: 'Statement Registory' , path:`/main/${store}/statement`} ]} currentRouteName={lobDetails.bname} />
-        <Statement />
+         <Breadcrumb routeSegments={[{ name: lobDetails.bname , path:`/main/${store}`}, { name: 'Registry' , path:`/main/${store}/statements`}]} currentRouteName={lobDetails.bname} />
+         <Paper sx={{marginTop:'5px', padding:'10px', minHeight:'80vh', overflow:'scroll'}} elevation={8} >
+        <Registry />
+        </Paper>
   </Layout>
   );
 }
 
-StatementPage.requireAuth = true
+RegistryPage.requireAuth = true

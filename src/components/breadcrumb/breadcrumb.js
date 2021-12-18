@@ -4,6 +4,7 @@ import Link from '@mui/material/Link';
 import MuiLink from '@mui/material/Link';
 import Hidden from '@mui/material/Hidden';
 import Icon from '@mui/material/Icon';
+import Paper from '@mui/material/Paper';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 import { makeStyles } from '@mui/styles'
 import MuiNextLink from 'components/MuiNextLink';
@@ -50,6 +51,7 @@ export default function Breadcrumb({ routeSegments , currentRouteName }) {
     const classes = useStyles()
 
   return (
+    <Paper elevation={8} >
     <div className={classes.conatinerDiv}>
     {currentRouteName ? (
         <Hidden xsDown>
@@ -92,5 +94,6 @@ export default function Breadcrumb({ routeSegments , currentRouteName }) {
     </Breadcrumbs>
  
     </div>
+    </Paper>
   );
 }
