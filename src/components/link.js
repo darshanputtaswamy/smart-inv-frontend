@@ -1,6 +1,5 @@
-/** @jsx jsx */ /** @jsxRuntime classic */
 import NextLink from 'next/link';
-import { jsx, Link as A } from 'theme-ui';
+import { Link as A } from '@mui/material';
 import { Link as MenuLink } from 'react-scroll';
 import { IoIosArrowForward } from 'react-icons/io';
 import { keyframes } from '@emotion/react';

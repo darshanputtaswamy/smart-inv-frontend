@@ -61,7 +61,7 @@ const Pricing = ({planList, plan, setPlan}) => {
                                 )}
                             >
                         <CardHeader
-                        title={<><Typography variant="h4" color="textSecondary" component="p">
+                        title={<><Typography variant="h4" color="textSecondary" component="span">
                                 {item.plan_name }   {plan == item.plan_id ? <CheckCircleIcon /> : null } 
                                 </Typography> 
                                 <small>₹{item.price} / Year </small> 

@@ -30,6 +30,18 @@ export default function StatementIndex({lobDetails}) {
     content: () => componentRef.current,
   });
   
+  const handleDelete = function(e){
+    
+    dispatch(deleteRowInStatementRegistory(store,id)).then(function(e){
+        router.push(`/main/${store}/statements`);
+    }).catch(function(e){
+        console.log("Something happened")
+    }).finally(function(e){
+        console.log("finally done")
+    })
+  }
+
+
   useEffect(() => {
     console.log(selectedStatement)
     if ( selectedStatement.length == 1 ) {
@@ -47,7 +59,7 @@ export default function StatementIndex({lobDetails}) {
             <Stack direction="row" justifyContent="end" spacing={2}>
                {viewMode && 
                <>
-                <Button raised="true"  variant="contained"  color="primary" onClick={(e)=>setViewMode(!viewMode)} >
+                <Button raised="true"  variant="contained"  color="primary" onClick={handleDelete} >
                           Delete
                  </Button>
                 <Button raised="true"  variant="contained"  color="primary" onClick={(e)=>setViewMode(!viewMode)} >

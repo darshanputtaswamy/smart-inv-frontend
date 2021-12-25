@@ -4,11 +4,9 @@ import OtpInput from 'react-otp-input';
 import { useRouter } from "next/router"
 
 import {
-    Flex,
-    Input,
-    Label,
+    Box,
     Button,
-  } from 'theme-ui';
+  } from '@mui/material';
   import Authcontext from 'context/AuthContext';
 
 const Verification = ({showForm}) => {
@@ -42,7 +40,12 @@ const Verification = ({showForm}) => {
 
     return (
         <Fragment>
-        <div sx={styles.otpcenter}>
+        <Box as="div" sx={{
+          display:'flex',
+          flexDirection:"column",
+          justifyContent: 'space-arround',
+          alignItems: 'center',
+        }}>
           <OtpInput
           value={otp}
           onChange={setOtp}
@@ -52,10 +55,10 @@ const Verification = ({showForm}) => {
             </span>
           }
           inputStyle={{
-            width: "3rem",
-            height: "3rem",
-            margin: "0 1rem",
-            fontSize: "1rem",
+            width: "2.5rem",
+            height: "2.5rem",
+            margin: "0 0.5rem",
+            fontSize: "2rem",
             borderRadius: 4,
             border: "1px solid rgba(0,0,0,0.3)"
           }}
@@ -66,20 +69,23 @@ const Verification = ({showForm}) => {
           disabled={false}
           isInputNum 
         />
-       </div>
-        <Button  onClick={handleSubmit} id="verify" variant="primary" sx={styles.submit}>
+      
+       <Box as="div" sx={{display:'flex', flexDirection:"column", maxWidth:'350px' , width:'250px',  rowGap: '10px',  justifyContent: 'space-between' , paddingTop:'25px'}} >
+        <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="verify" variant="contained" fullWidth>
             Verify
          </Button>
-            <Flex >
-    
-    <Button  onClick={(e)=>{showForm("cleared")}} id="cleared" variant="muted" sx={styles.submitl50}>
+         <Box as="div" sx={{display:'flex',  justifyContent: 'space-between' , padding:'5px'}} >
+          <Button  style={{ padding: "15px 0px" }}  onClick={(e)=>{showForm("cleared")}} id="cleared" variant="outlined" width={'45%'} >
         Cancel
         </Button>
-        <Button  onClick={handleSubmit} id="resend" variant="primary" sx={styles.submitr50}>
+        <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="resend" variant="contained" width={'45%'} >
         resend
         </Button>
-    </Flex>
+        </Box>
+        </Box>
+        </Box>
         </Fragment>
+
     );
   };
   

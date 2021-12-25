@@ -37,7 +37,7 @@ export const getStatementRegistoryById = (bid, sid) => (dispatch) => {
     })
 }
 
-export const addRowInStatementRegistory = (bid, data) => (dispatch) => {
+export const addRowInStatementRegistory = (bid, data) => async (dispatch) => {
     api.post(`/lob/${bid}/statement_registery`, data).then((res) => {
         console.log(res.data)
         dispatch({
@@ -57,8 +57,8 @@ export const updateRowInStatementRegistory = (bid, newData, oldDate) => async (d
 }
 
 
-export const deleteRowInStatementRegistory = (bid, oldDate) => (dispatch) => {
-    api.delete(`/lob/${bid}/statement_registery/${oldDate.sid}`).then((res) => {
+export const deleteRowInStatementRegistory = (bid, sid) => async (dispatch) => {
+    api.delete(`/lob/${bid}/statement_registery/${sid}`).then((res) => {
         dispatch({
             type: DELETE_STATEMENT_REGISTORY_RECORD,
             payload: res.data,

@@ -2,10 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 
 export default function SEO({
-  description = 'startup landing descriptions',
-  author = 'RedQ, Inc',
+  description = 'Powers your business with smart inventory management system',
+  author = '3WE IT-Solution',
   meta,
-  title = 'startup landing title',
+  title = 'EasyInvy',
 }) {
   const metaData = [
     {

@@ -123,7 +123,8 @@ export const AuthProvider = ({children}) =>{
         verifyUser,
         clearSession
     };
-
+    console.log(authObj);
+    
     return (
         <AuthContext.Provider value={authObj}>
             {children}

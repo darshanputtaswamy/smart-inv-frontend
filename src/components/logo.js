@@ -1,7 +1,5 @@
-/** @jsx jsx */ /** @jsxRuntime classic */
-import { jsx } from 'theme-ui';
 import { Link } from 'components/link';
-import LogoSvg from 'components/icons/logo';
+import LogoSvg from 'components/Icons/logo';
 
 export default function Logo({ isSticky, footer, ...props }) {
   return (

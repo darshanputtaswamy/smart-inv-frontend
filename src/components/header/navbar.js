@@ -31,3 +31,14 @@ const Navbar = ({ navLinks }) => {
 };
 
 export default Navbar;
+
+
+
+  
+const styles = {
+  
+  logo: {
+    mr: [null, null, null, null, 6, null, 12],
+  },
+   
+};

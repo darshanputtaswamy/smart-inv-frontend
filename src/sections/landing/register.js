@@ -4,11 +4,11 @@ import {toast } from 'react-toastify';
 import Authcontext from 'context/AuthContext';
 
 import {
-    Flex,
-    Input,
-    Label,
+    Box,
+    TextField,
+    InputLabel,
     Button,
-  } from 'theme-ui';
+  } from '@mui/material';
 
 const Register = ({showForm}) => {
 
@@ -55,22 +55,22 @@ const Register = ({showForm}) => {
 
     return (
         <Fragment>
-              <Label htmlFor="username">Username</Label>
-              <Input name="username" id="Username" mb={3}  onChange={(e)=> setUsername(e.target.value)} />
-               <Label htmlFor="Phone">Mobile Number</Label>
-              <Input name="Phone" id="Phone" mb={3}  onChange={(e)=> setMobile(e.target.value)} />
-              <Label htmlFor="password">Password</Label>
-              <Input type="password" name="password" id="password" mb={3} onChange={(e)=> setPassword(e.target.value)} />
-              <Label htmlFor="password">Confirm Password</Label>
-              <Input type="password" name="cpassword" id="cpassword" mb={3}  onChange={(e)=> setConfirmPassword(e.target.value)} />
-              <Flex >
-              <Button   onClick={(e)=>showForm("cleared")} id="cleared" variant="muted" sx={styles.submitl50}>
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <TextField name="username" id="Username" mb={3}  onChange={(e)=> setUsername(e.target.value)} fullWidth/>
+               <InputLabel htmlFor="Phone">Mobile Number</InputLabel>
+              <TextField name="Phone" id="Phone" mb={3}  onChange={(e)=> setMobile(e.target.value)} fullWidth/>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <TextField type="password" name="password" id="password" mb={3} onChange={(e)=> setPassword(e.target.value)} fullWidth/>
+              <InputLabel htmlFor="password">Confirm Password</InputLabel>
+              <TextField type="password" name="cpassword" id="cpassword" mb={3}  onChange={(e)=> setConfirmPassword(e.target.value)} fullWidth/>
+              <Box  as="div" sx={{display:'flex',  justifyContent: 'space-between' , paddingTop:'5px'}} >
+                  <Button  style={{ padding: "15px 0px" }}  onClick={(e)=>showForm("cleared")} id="cleared" variant="outlined" >
                 Cancel
               </Button>
-              <Button   onClick={handleSubmit} id="register" variant="primary" sx={styles.submitr50}>
+              <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="register" variant="contained">
                  Register
               </Button>
-              </Flex>
+              </Box>
            
             
               </Fragment>
@@ -174,20 +174,6 @@ const styles = {
       mt: [4],
       minHeight: [45, null, null, 60],
       width: '100%',
-    },
-    submitl50: {
-      fontSize: [1, null, null, 2],
-      mt: [4],
-      mr: [5],
-      minHeight: [45, null, null, 60],
-      width: '50%',
-    },
-    submitr50: {
-      fontSize: [1, null, null, 2],
-      mt: [4],
-      ml: [5],
-      minHeight: [45, null, null, 60],
-      width: '50%',
     },
     note: {
       fontStyle: 'italic',

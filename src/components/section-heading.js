@@ -1,7 +1,6 @@
-/** @jsx jsx */ /** @jsxRuntime classic */
-import { jsx, Box, Heading, Text, Image } from 'theme-ui';
+import { Box, Typography, Text, Image } from '@mui/material';
 
-const SectionHeading = ({ title, slogan, description, emoji, ...props }) => {
+export default function SectionHeading ({ title, slogan, description, emoji, ...props }){
   return (
     <Box sx={styles.heading} {...props}>
       {slogan && (
@@ -9,10 +8,10 @@ const SectionHeading = ({ title, slogan, description, emoji, ...props }) => {
           {slogan}
         </Text>
       )}
-      <Heading as="h3" sx={styles.title}>
+      <Typography as="h3" sx={styles.title}>
         {emoji ? <span>{title}</span> : title}
         {emoji && <Image src={emoji} alt="emoji" />}
-      </Heading>
+      </Typography>
       {description && (
         <Text as="p" sx={styles.description}>
           {description}
@@ -22,7 +21,6 @@ const SectionHeading = ({ title, slogan, description, emoji, ...props }) => {
   );
 };
 
-export default SectionHeading;
 
 const styles = {
   heading: {

@@ -37,4 +37,4 @@ export default function StatementPage() {
   );
 }
 
-StatementPage.requireAuth = false
+StatementPage.requireAuth = true

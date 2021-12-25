@@ -13,8 +13,8 @@ import { useRouter } from 'next/router';
 
 const columns = [
   {title: "iid", field: "iid", hidden: true},
-  {field: 'itype', title: 'Perticular Type', defaultGroupOrder: 0  },
-  {field: 'name', title: 'Perticular Name'},
+  {field: 'itype', title: 'Perticular Type', },
+  {field: 'name', title: 'Perticular Name', },
   {field: 'quantity', title: 'Quantity/Units',},
   {field: 'price',  title: 'Price',}
   ]
@@ -48,7 +48,8 @@ export default function Inventory() {
         data={inventory}
         options={{
           grouping: true,
-          exportButton: true
+          defaultExpanded: true
+
         }}
         components={{
           Container: (props) => <Paper {...props}  />

@@ -1,0 +1,8 @@
+node_modules
+Dockerfile
+.git
+.gitignore
+database
+log
+.DS_Store
+.next
