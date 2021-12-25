@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState,useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -23,9 +23,9 @@ const router = useRouter();
 const { store } = router.query; 
 
 
-const [open, setOpen] = React.useState(false);
+const [open, setOpen] = useState(false);
 
-  const [ formState, setFormState ] = React.useState({
+  const [ formState, setFormState ] = useState({
     name:'',
     type:'BAR',
     address:'',
@@ -34,7 +34,7 @@ const [open, setOpen] = React.useState(false);
     gst_number:'',
   });
 
-React.useEffect(() => {
+useEffect(() => {
         setFormState({
             name:storeObj.bname,
             type:storeObj.btype,

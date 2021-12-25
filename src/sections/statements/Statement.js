@@ -59,7 +59,7 @@ return  (
 
 
     statementSummary  ? (
-    <div ref={ref}>
+    <div  ref={ref}>
     
     <Box
         sx={{
@@ -105,9 +105,9 @@ return  (
                         <StyledTableCell component="th" scope="row" align="right">Quantity</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Open</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Received</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right" >Closed</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" align="right">Closed</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Sales</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Cost</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" align="right">Cost/Unit</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Auto Total(₹)</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Actual Total(₹)</StyledTableCell>
                    </TableRow>

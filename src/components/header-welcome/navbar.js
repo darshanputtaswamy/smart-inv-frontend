@@ -1,5 +1,4 @@
-/** @jsx jsx */ /** @jsxRuntime classic */
-import { jsx, Box } from 'theme-ui';
+import { Box } from '@mui/material';
 import { NavLink } from 'components/link';
 import menuItems from './header.data';
 
@@ -23,15 +22,15 @@ export default Navbar;
 
 const styles = {
   navbar: {
-    display: [null, null, null, null, null, 'flex'],
-    alignItems: [null, null, null, 'center'],
+    display: {xs:null, sm:null, md:null, lg:null, xl:'flex'},
+    alignItems: {xs:null, sm:null, md:null, lg:'center'},
     flexGrow: [null, null, null, 2],
     placeContent:'space-around',
     a: {
       color: 'white',
       cursor: 'pointer',
       '+ a': {
-        ml: [null, null, null, null, null, 6],
+        ml: {xs:null, sm:null, md:null, lg:null, xl:6},
       },
     },
     '@media only screen and (max-width: 1200px)': {

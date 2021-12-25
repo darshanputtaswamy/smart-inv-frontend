@@ -96,8 +96,8 @@ export default function EditStatement({ setParentIsDirty, statementSummary, disa
 
         
     const columns = [
-        { field: 'itype', title: 'Type', editable: 'never', defaultGroupOrder: 0 },
-        { field: 'name', title: 'Name', editable: 'never', defaultGroupOrder: 1 },
+        { field: 'itype', title: 'Perticular Type', editable: 'never', defaultGroupOrder: 0 },
+        { field: 'name', title: 'Perticular Name', editable: 'never', defaultGroupOrder: 1 },
         { field: 'quantity', title: 'Quantity/Units', editable: 'never' },
         { field: 'id', title: 'id', hidden: true, editable: 'never' },
         { field: 'bid', title: 'bid', hidden: true, editable: 'never' },
@@ -190,6 +190,8 @@ export default function EditStatement({ setParentIsDirty, statementSummary, disa
                         data={statement}
                         options={{
                             grouping: true,
+                            defaultExpanded: true
+
                         }}
                         components={{
                             Container: (props) => <Paper {...props}  />,

@@ -6,13 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Authcontext from 'context/AuthContext';
 
 import {
-    Flex,
-    Input,
-    Label,
+    Box,
+    TextField ,
+    InputLabel ,
     Button,
-  } from 'theme-ui';
+  } from '@mui/material';
 
-const Login = ({showForm}) => {
+export default function Login({showForm}){
     const {initializing,login,error,sessionUser,clearSession} = useContext(Authcontext);
     
     const router = useRouter();
@@ -54,23 +54,23 @@ const Login = ({showForm}) => {
 
     return (
         <Fragment>
-        <Label htmlFor="Phone">Mobile Number</Label>
-        <Input name="Phone" id="Phone" mb={3} onChange={(e)=> setMobile(e.target.value)}/>
-        <Label htmlFor="password">Password</Label>
-        <Input type="password" name="password" id="password" mb={3}  onChange={(e)=> setPassword(e.target.value)} />
-        <Flex >
-            <Button  onClick={(e)=>showForm("cleared")}  variant="muted" sx={styles.submitl50}>
+        <InputLabel  htmlFor="Phone">Mobile Number</InputLabel >
+        <TextField  name="Phone" id="Phone" mb={3} onChange={(e)=> setMobile(e.target.value)} fullWidth/>
+        <InputLabel  htmlFor="password">Password</InputLabel >
+        <TextField  type="password" name="password" id="password" mb={3}  onChange={(e)=> setPassword(e.target.value)} fullWidth/>
+        <Box  as="div" sx={{display:'flex',  justifyContent: 'space-between' , paddingTop:'5px'}} >
+            <Button  onClick={(e)=>showForm("cleared")}  variant="outlined" >
             Cancel
             </Button>
-            <Button  onClick={handleSubmit} id="login" variant="primary" sx={styles.submitr50}>
+            <Button  onClick={handleSubmit} id="login" variant="contained" >
             Login
             </Button>
-        </Flex>
+        </Box>
         </Fragment>
     );
   };
   
-  export default Login;
+  
 
   
 const styles = {

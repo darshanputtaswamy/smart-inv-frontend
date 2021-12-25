@@ -23,4 +23,4 @@ export default function MainPage() {
   );
 }
 
-MainPage.requireAuth = true
+MainPage.requireAuth = false

@@ -1,4 +1,4 @@
-import * as React from 'react'; 
+import React, {useState, useRef , useEffect} from 'react'; 
 import Box from '@mui/material/Box'; 
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'; 
@@ -42,10 +42,10 @@ export default function Footer() {
     tabIndex=menuItems.indexOf(x[x.length-1])
 
   }
-  const [value, setValue] = React.useState(tabIndex);
-  const ref = React.useRef(null);
+  const [value, setValue] = useState(tabIndex);
+  const ref = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
 
     ref.current.ownerDocument.body.scrollTop = 0;
     let x= router.pathname.split('/')
