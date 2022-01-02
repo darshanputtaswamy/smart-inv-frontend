@@ -18,6 +18,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
+
 
 const columns = [
   { field: 'sid', title: 'ID', flex: 0.5, },
@@ -85,7 +90,25 @@ export default function Statement() {
     dispatch(getStatementRegistory(store)) 
 }, [dispatch])
 
- 
+const theme = useTheme();
+const smUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+let customStyle = {
+  padding: theme.spacing(1, 1, 1, 0),
+  // vertical padding + font size from searchIcon
+  paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+  transition: theme.transitions.create("width"),
+  width: "200%"
+};
+
+if (smUp) {
+  customStyle = {
+    ...customStyle,
+    width: "24ch",
+    color: "red",
+    }
+  };
+
 
   return (
 <>
@@ -94,12 +117,11 @@ export default function Statement() {
   <Grid item xs={12}>
   <div style={{ height: '70Vh', width: '100%' }}>
       <MaterialTable
-        title="Statement Registory"
+        title={smUp?"Registory":""}
         data={registory}
-       
         actions={[
           {
-            icon: "keyboard_left",
+            icon: ArrowForwardIcon,
             tooltip: 'Load Statement',
             onClick: (event, rowData) => router.push(`/main/${store}/statements/${rowData.sid}`)
           },
@@ -107,6 +129,7 @@ export default function Statement() {
           icon: "add_box",
           tooltip: "Add New Statement",
           position: "toolbar",
+          style:{ color: "#2a0a4e" },
           onClick: handleClickOpen
         }
         ]}
@@ -116,6 +139,20 @@ export default function Statement() {
         columns={columns}
         options={{
           exportButton: true,
+          headerStyle: {
+            lineHeight: '2.5rem',
+            backgroundColor: '#2a0a4e',
+            color: '#FFF',
+          },
+          rowStyle: {
+            fontFamily: '"Roboto","Helvetica","Arial","sans-serif"'
+          },
+          actionsCellStyle:{
+            backgroundColor: '#757cc9',
+            width:'7%',
+            
+          },
+          searchFieldStyle: customStyle,
         }}
        />
     </div>

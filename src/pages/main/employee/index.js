@@ -13,7 +13,7 @@ export default function EmpoyleePage() {
             description="Collection of free top of the line startup landing templates built using react/ next js. Free to download, simply edit and deploy! Updated weekly!"
           />  
           <Breadcrumb  currentRouteName={'Employee'} />
-          <Paper sx={{marginTop:'5px', padding:'10px', minHeight:'80vh'}} elevation={8} >
+          <Paper sx={{marginTop:'5px', padding:'10px', minHeight:'80vh' , overflow:'scroll'}} elevation={8} >
 
          <Employee />
          </Paper>

@@ -25,10 +25,12 @@ const navLinks  = [
   'path':'/main/reports'
   },
   {'title': 'Profile',
-  'path':'/main/profile'
+  'path':'/main/profile',
+  'onClick':function(e){console.log(e)}
   },
   {'title': 'Logout',
-  'path':'/'
+  'path':'/',
+  'onClick':function(e){console.log(e)}
   }];
 
 

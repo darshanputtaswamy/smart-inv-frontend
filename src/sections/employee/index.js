@@ -2,9 +2,18 @@ import React, { useState, useEffect,useRef } from 'react'
 import MaterialTable,{ MTableToolbar,MTableActions } from "@material-table/core";
 import { Grid, Button , Paper,} from '@mui/material'; 
 import {  
-getStatementRegistory,
-addRowInStatementRegistory,
-} from 'redux/actions/StatementActions'
+getLobUserList,
+createLobUser,
+updateLobUser,
+deleteLobUser
+} from 'redux/actions/LobActions'
+import AsynchronousSearchAppUser from './search';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import {
+  getUserProfile 
+} from 'redux/actions/UserProfileActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
@@ -18,30 +27,63 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
  
 
 const columns = [
 
   { field: 'id', title: 'ID', hidden:true },
-  { field: 'bid', title: 'Store ', flex: 0.5, },
-  { field: 'uid', title: 'User', flex: 0.5,},
-  { field: 'role', title: 'Role', flex: 0.5,}
+  { field: 'bid', title: 'Store ', editable: 'never', flex: 0.5, render: rowData => `${rowData.bname} - [${rowData.address} - ${rowData.postal_code} ]` },
+  { field: 'uid', title: 'User', editable: 'never', flex: 0.5, render: rowData => `${rowData.phone} - [${rowData.username}]`},
+  { field: 'role', title: 'Role', flex: 0.5,  
+
+  editComponent: props => (
+          <TextField
+        id="role"
+        select
+        sx={{ marginTop:'5px'}}
+        label="Role"
+        required
+        value={props.value}
+        onChange={e => {
+          var data = { ...props.rowData };
+          data.role = e.target.value
+          props.onRowDataChange(data);
+      }}
+        fullWidth
+        disabled={props.value == 'owner'}
+      >
+              <MenuItem value={'admin'}>Admin</MenuItem>
+              <MenuItem value={'user'}>User</MenuItem>   
+              {props.value == 'owner' &&
+              <MenuItem value={'owner'}>Owner</MenuItem>          
+              }
+      </TextField>
+)
+ 
+
+}
  
 ];
 
  
 export default function Employee() {
-  const { registory = [] } = useSelector((state) => state.store)
-  const [newfDate, setNewfDate] = useState(new Date());
-  const [newtDate, setNewtDate] = useState(new Date());
-  const [newPreStatementID, setNewPreStatementID] = useState(null);
-
- 
-
+  const { lobUserList = [] } = useSelector((state) => state.lob)
+  const [newfbid, setNewfbid] = useState('');
+  const [newfuid, setNewfuid] = useState('');
+  const [newfrole, setNewfrole] = useState('user');
+  const { stores = [] } = useSelector((state) => state.user)
   const dispatch = useDispatch();
+
+  useEffect(() => {
+      dispatch(getUserProfile()) 
+  }, [dispatch])
+  const theme = useTheme();
+  const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
+ 
   const router = useRouter();
-   const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,10 +94,10 @@ export default function Employee() {
   };
 
   const handleSubmit = () =>{
-    dispatch(addRowInStatementRegistory(store, {
-      "previous_sid": newPreStatementID,
-     "fdate":newfDate,
-     "tdate":newtDate
+    dispatch(createLobUser({
+     "bid": newfbid,
+     "uid":newfuid,
+     "role":newfrole
     })).then(function(e){
       console.log(e)
       setOpen(false);
@@ -66,7 +108,11 @@ export default function Employee() {
       console.log("cloed");
     })
   }
- 
+
+  useEffect(() => {
+    dispatch(getLobUserList()) 
+}, [dispatch])
+
 
   return (
 <>
@@ -75,28 +121,54 @@ export default function Employee() {
   <Grid item xs={12}>
   <div style={{ height: '70Vh', width: '100%' }}>
       <MaterialTable
-        title="Manage Employee"
-        data={[]}
-       
+        title={shouldShowTitle?"Employee":""}
+        data={lobUserList}
+        icons={{
+          Add: () => <AddBoxSharpIcon style={{ color: "#2a0a4e" }} />,
+        }}
         actions={[
           {
-            icon: "keyboard_left",
-            tooltip: 'Load Statement',
-            onClick: (event, rowData) => router.push(`/main/${store}/statements/${rowData.sid}`)
-          },
-          {
           icon: "add_box",
-          tooltip: "Add New Statement",
+          tooltip: "Add New Employee",
           position: "toolbar",
           onClick: handleClickOpen
         }
         ]}
+        editable={{
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              dispatch(updateLobUser(newData,oldData))
+              resolve();
+            }),
+          onRowDelete: oldData =>
+            new Promise((resolve, reject) => {
+              dispatch(deleteLobUser(oldData))
+              resolve();
+            }),
+        }}
         components={{
           Container: (props) => <Paper {...props} />,
         }}
         columns={columns}
         options={{
-          exportButton: true,
+          defaultExpanded: true,
+           headerStyle: {
+            lineHeight: '2.5rem',
+            backgroundColor: '#2a0a4e',
+            color: '#FFF',
+          },
+          rowStyle: {
+            fontFamily: '"Roboto","Helvetica","Arial","sans-serif"'
+          },
+          searchFieldStyle: {
+            width: '100%',
+            padding: '0px',
+            margin: '0px'
+        },
+        actionsCellStyle:{
+          backgroundColor: '#757cc9',
+          width:'7%'
+        },
         }}
        />
     </div>
@@ -104,52 +176,53 @@ export default function Employee() {
 </Grid>
 <Dialog  fullWidth={true}
          maxWidth={'md'} open={open} onClose={handleClose}>
-        <DialogTitle>Manage Employee</DialogTitle>
+        <DialogTitle>Add Employee</DialogTitle>
         <DialogContent>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Stack spacing={3}>
         <TextField
-                                id="Previous Statement"
-                                select
-                                sx={{ marginTop:'5px'}}
-                                label="Previous Statement"
-                                required
-                                value={newPreStatementID}
-                                fullWidth
-                                onChange={(event)=>{
-                                  console.log(event)
-                                  setNewPreStatementID(event.target.value)
-                                }}
-                            >
-                              {
-                                  registory.map(function(e){
+              id="bid"
+              select
+              sx={{ marginTop:'5px'}}
+              label="Store Name"
+              required
+              value={newfbid}
+              fullWidth
+              onChange={(event)=>{
+                setNewfbid(event.target.value)
+              }}
+          >
+            {
+                stores.map(function(rowData){
+                  return (
+                    <MenuItem value={rowData.bid}>
+                        {rowData.bname} - [{rowData.address} - {rowData.postal_code}] 
+                    </MenuItem>
+                  )
+                })
 
-                                    return (
-                                      <MenuItem value={e.sid}>
-                                          {e.sid} - [ {e.fdate } - {e.tdate}] [{e.status}]
-                                      </MenuItem>
-                                    )
-                                  })
+            } 
+          </TextField>
 
-                              } 
-                            </TextField>
-        <MobileDatePicker
-          label="Manage Employee"
-          inputFormat="MM/dd/yyyy"
-          value={newfDate}
-          onChange={(value)=>{setNewfDate(value)}}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <MobileDatePicker
-          label="New Statement - To Date"
-          inputFormat="MM/dd/yyyy"
-          value={newtDate}
-          onChange={(value)=>{setNewtDate(value)}}
-          renderInput={(params) => <TextField {...params} />}
-        />
+           <AsynchronousSearchAppUser   setNewfuid={setNewfuid} />
+
+          <TextField
+              id="role"
+              select
+              sx={{ marginTop:'5px'}}
+              label="Role"
+              required
+              value={newfrole}
+              fullWidth
+              onChange={(event)=>{
+                setNewfrole(event.target.value)
+              }}
+          >
+                     <MenuItem value={'admin'}>Admin</MenuItem>
+                     <MenuItem value={'user'}>User</MenuItem>          
+          </TextField>
+
           </Stack>
-    </LocalizationProvider>
-
+ 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} sx={{float:'left'}} >Cancel</Button>

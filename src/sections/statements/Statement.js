@@ -14,10 +14,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
- 
+import { Grid, MenuItem, TextField } from '@mui/material';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: '#2a0a4e',
       color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -35,8 +36,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-
-
+ 
+ 
 
 export const  Statement = React.forwardRef((props, ref) => {
     const { statement = []  } = useSelector((state) => state.store)
@@ -94,7 +95,7 @@ return  (
       </Box>
 
 
-     
+      <div >
 
               <TableContainer component={Paper}>
               <Table aria-label="simple table">
@@ -105,6 +106,7 @@ return  (
                         <StyledTableCell component="th" scope="row" align="right">Quantity</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Open</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Received</StyledTableCell>
+                        <StyledTableCell component="th" scope="row" align="right">Total</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Closed</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Sales</StyledTableCell>
                         <StyledTableCell component="th" scope="row" align="right">Cost/Unit</StyledTableCell>
@@ -127,14 +129,14 @@ return  (
                         <StyledTableCell align="right">{item.open}</StyledTableCell>
                       
                         <StyledTableCell align="right">{item.received}</StyledTableCell>
-                     
+                        <StyledTableCell align="right">{parseInt(item.received)+parseInt(item.open)}</StyledTableCell>
                         <StyledTableCell align="right">{item.closed}</StyledTableCell>
 
                         <StyledTableCell align="right">{item.sales}</StyledTableCell>
 
                         <StyledTableCell align="right">{item.cost}</StyledTableCell>
-                        <StyledTableCell align="right">{item.auto_total}</StyledTableCell>
-                        <StyledTableCell align="right">{item.actual_total}</StyledTableCell>
+                        <StyledTableCell align="right">{parseFloat(item.auto_total).toFixed(2) }</StyledTableCell>
+                        <StyledTableCell align="right">{parseFloat(item.actual_total).toFixed(2) }</StyledTableCell>
                         </StyledTableRow>
                 </>
 
@@ -144,56 +146,119 @@ return  (
                              </TableBody>
                 </Table>
        </TableContainer>
+<Paper  elevation={2} sx={{ marginTop:'3rem'}} >
+  <Grid container spacing={4} >
+    <Grid item xs={12} xm={12} md={12} lg={12} >
+    <Typography variant="h6" component="div">
+        Statement Summary
+    </Typography>
+                
+        </Grid>
+      
+        <Grid item xs={6} xm={6} md={6} lg={6} >
+            <TextField
+                id="actual_total"
+                label="₹ Actual Total"
+                value={parseFloat(statementSummary.actual_total).toFixed(2)}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
+        </Grid>
+        <Grid item xs={6} xm={6} md={6}  lg={6}>
+            <TextField
+                id="auto_total"
+                label="₹ Auto Total"
+                value={parseFloat(statementSummary.auto_total).toFixed(2) }
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
 
-       
-       <TableContainer sx={{  width:'50%'}}>
-       <Table>
-       <TableBody>
-       <TableRow>
-                                 <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Auto Total</b></TableCell>
-                                <TableCell align="right"><b>₹ {statementSummary.auto_total} </b></TableCell>
-                            </TableRow>
+        </Grid>
+        <Grid item xs={6} xm={6} md={6}  lg={6}>
+            <TextField
+                id="exp_total"
+                label="₹ Expenditure"
+                value={statementSummary.exp_total}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
 
-                    <TableRow>
-                                <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Actual Total</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.actual_total}</b></TableCell>
-                            </TableRow>
-                        
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Expenditure Total</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.exp_total}</b></TableCell>
-                            </TableRow>
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Card Paid</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.card_paid}</b></TableCell>
-                            </TableRow>
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Cash Paid</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.cash_paid}</b></TableCell>
-                            </TableRow>
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Cash Balance</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.cash_balance}</b></TableCell>
-                            </TableRow>
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Cash Balance</b></TableCell>
-                                <TableCell align="right"><b>₹{statementSummary.cash_balance}</b></TableCell>
-                            </TableRow>
-                            <TableRow>
-                            <TableCell colSpan={12} />
-                                <TableCell align="right" colSpan={11}><b>Expenditure</b></TableCell>
-                                <TableCell align="right"><b><pre>{statementSummary.exp_comments}</pre></b></TableCell>
-                            </TableRow>
-                            </TableBody>
-            </Table>
-       </TableContainer>
+        </Grid>
+        <Grid item xs={6} xm={6} md={6}  lg={6}>
+            <TextField
+                id="cash_paid"
+                label="₹ Cash Paid"
+                value={statementSummary.cash_paid}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
+
+        </Grid>
+        <Grid item xs={6} xm={6} md={6}  lg={6}>
+            <TextField
+                id="card_paid"
+                label="₹ Card Paid"
+                value={statementSummary.card_paid}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
+
+        </Grid>
+        <Grid item xs={6} xm={6} md={6}  lg={6}>
+            <TextField
+                id="cash_balance"
+                label="₹ Cash Balance"
+                value={statementSummary.cash_balance}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
+
+        </Grid>
+        <Grid item xs={12} xm={6} md={6}  lg={6}>
+            <TextField
+                multiline
+                minRows={5}
+                id="exp_comments"
+                label="Comments"
+                placeholder="Expenditure Comments"
+                value={statementSummary.exp_comments}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            />
+
+        </Grid>
+        <Grid item xs={6} xm={6} md={6} lg={6}>
+            <TextField
+                id="status"
+                label="Statement Status"
+                required
+                value={statementSummary.status}
+                fullWidth
+                InputLabelProps={{
+                  style: { color: '#000' },
+                }}
+            > 
+            </TextField>
+        </Grid>
+
+    </Grid>
+
+</Paper>
+</div>
     </div>
     ):<div> Loading... </div>
     )

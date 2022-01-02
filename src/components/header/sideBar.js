@@ -39,7 +39,14 @@ const SideDrawer = ({ navLinks }) => {
             textTransform: `uppercase`,
           }}
         >
-          <MuiNextLink sx={{ color: "common.white" }} href={path}>
+          <MuiNextLink    sx={{ color: `white`, opacity: 1,
+              borderRadius:'2px', textDecoration: 'none' , padding: '2px 25px 2px 25px', '&:hover': {
+              cursor: 'pointer',
+              backgroundColor: 'white',
+              color:'black',
+              padding: '2px 25px 2px 25px',
+              borderRadius:'2px',
+            }}} href={path}>
             {title}
           </MuiNextLink>
         </Typography>

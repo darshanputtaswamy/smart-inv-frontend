@@ -4,7 +4,6 @@ export const GET_USER_PROFILE = 'GET_USER_PROFILE'
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE'
 export const DETELE_USER_PROFILE = 'DETELE_USER_PROFILE'
 export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD'
-import { toast } from 'react-toastify';
 
 export const getUserProfile = () => (dispatch) => {
     api.get('/user/details').then((res) => {

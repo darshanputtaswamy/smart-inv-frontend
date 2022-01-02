@@ -25,7 +25,7 @@ export const AuthProvider = ({children}) =>{
     const [error, setError] = useState(null);
     const [verified, setVerified] = useState(false);
 
-    const setSession = (obj) => {
+    const setSession = async (obj) => {
         if (obj) {
             localStorage.setItem('accessToken', obj.accessToken)
             localStorage.setItem('user', JSON.stringify(obj.user))
@@ -98,6 +98,7 @@ export const AuthProvider = ({children}) =>{
                 verification_code:verification_code,
             })
             const { accessToken, user } = response.data
+            clearSession()
             setSession({ accessToken, user })
             setSessionUser(user);
             setInitializing(false);

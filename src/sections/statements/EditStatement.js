@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function EditStatement({ setParentIsDirty, statementSummary, disableOpen , setViewMode}) {
     let [formState, setFormState] = useState({
@@ -29,7 +31,8 @@ export default function EditStatement({ setParentIsDirty, statementSummary, disa
         status: statementSummary.status,
     })
     let [isDirty, setIsDirty] = useState(false);
-    
+    const theme = useTheme();
+const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
     const {
         statement = [],
         statementActualTotal = 0,
@@ -96,8 +99,8 @@ export default function EditStatement({ setParentIsDirty, statementSummary, disa
 
         
     const columns = [
-        { field: 'itype', title: 'Perticular Type', editable: 'never', defaultGroupOrder: 0 },
-        { field: 'name', title: 'Perticular Name', editable: 'never', defaultGroupOrder: 1 },
+        { field: 'itype', title: 'Perticular Type', editable: 'never',  },
+        { field: 'name', title: 'Perticular Name', editable: 'never',  },
         { field: 'quantity', title: 'Quantity/Units', editable: 'never' },
         { field: 'id', title: 'id', hidden: true, editable: 'never' },
         { field: 'bid', title: 'bid', hidden: true, editable: 'never' },
@@ -186,13 +189,24 @@ export default function EditStatement({ setParentIsDirty, statementSummary, disa
             <Grid item xs={12}>
                 <div style={{ width: '100%' }}>
                     <MaterialTable
-                        title="Statement"
+                        title={shouldShowTitle?"Statement":""}
                         data={statement}
                         options={{
                             grouping: true,
-                            defaultExpanded: true
-
-                        }}
+                            headerStyle: {
+                              lineHeight: '2.5rem',
+                              backgroundColor: '#2a0a4e',
+                              color: '#FFF',
+                            },
+                            rowStyle: {
+                              fontFamily: '"Roboto","Helvetica","Arial","sans-serif"'
+                            },
+                            actionsCellStyle:{
+                                backgroundColor: '#757cc9',
+                                width:'7%',
+                                
+                              },
+                          }}
                         components={{
                             Container: (props) => <Paper {...props}  />,
                         }}

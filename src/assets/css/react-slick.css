@@ -145,3 +145,19 @@
 .react-pdf__Page__canvas {
   margin: 0 auto;
 }
+
+
+.react-calendar-heatmap .color-scale-1 { fill: #d6e685; }
+.react-calendar-heatmap .color-scale-2 { fill: #8cc665; }
+.react-calendar-heatmap .color-scale-3 { fill: #44a340; }
+.react-calendar-heatmap .color-scale-4 { fill: #1e6823; }
+
+
+.MuiTableSortLabel-root.MuiTableSortLabel-active{
+  color: white !important;
+}
+
+
+.MuiTableSortLabel-root.MuiTableSortLabel-hover{
+  color: white !important;
+}

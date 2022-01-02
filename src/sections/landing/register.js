@@ -64,16 +64,14 @@ const Register = ({showForm}) => {
               <InputLabel htmlFor="password">Confirm Password</InputLabel>
               <TextField type="password" name="cpassword" id="cpassword" mb={3}  onChange={(e)=> setConfirmPassword(e.target.value)} fullWidth/>
               <Box  as="div" sx={{display:'flex',  justifyContent: 'space-between' , paddingTop:'5px'}} >
-                  <Button  style={{ padding: "15px 0px" }}  onClick={(e)=>showForm("cleared")} id="cleared" variant="outlined" >
+                  <Button  style={{ padding: "5px 20px" }}  onClick={(e)=>showForm("cleared")} id="cleared" variant="outlined" >
                 Cancel
               </Button>
-              <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="register" variant="contained">
+              <Button  style={{ padding: "5px 20px" }}  onClick={handleSubmit} id="register" variant="contained">
                  Register
               </Button>
               </Box>
-           
-            
-              </Fragment>
+            </Fragment>
     );
   };
   

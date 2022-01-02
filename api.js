@@ -1,6 +1,7 @@
 // api.js
 import Axios from "axios";
 import { useState, useMemo, useEffect } from  "react";
+import { toast } from 'react-toastify';
 
 let urls = {
     TEST: `http://localhost:3000/api/v1.0`,
@@ -34,10 +35,19 @@ export const useAxiosLoader = () => {
       // add request interceptors
       const reqInterceptor = api.interceptors.request.use(interceptors.request, interceptors.error);
       // add response interceptors
-      const resInterceptor = api.interceptors.response.use(interceptors.response,(error) =>
-      Promise.reject(
+      const resInterceptor = api.interceptors.response.use(interceptors.response,(error) =>{
+        
+      if(error.response && error.response.data.message){
+        toast.error(error.response.data.message);
+      }else if(error.response && error.response.data.message && error.response.data.message.indexOf('Unable to varify your credentials - TokenExpiredError: jwt expired')){
+        console.log('Redirect')
+
+      }else{
+        toast.error('Something went wrong!');
+      }
+      return Promise.reject(
           (error.response && error.response.data.message) || 'Something went wrong!'
-      ));
+      )});
       return () => {
         // remove all intercepts when done
         api.interceptors.request.eject(reqInterceptor);

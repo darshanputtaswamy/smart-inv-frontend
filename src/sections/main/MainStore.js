@@ -8,9 +8,10 @@ const MainStore = ({store}) => {
 
     return (
                 <Card elevation={3}>
-                    <CardHeader
+                     <CardActionArea onClick={(e)=>{ router.push("/main/"+store.bid)}}>
+                     <CardHeader
                         action={
-                            <IconButton onClick={(e)=>{ router.push("/main/"+store.bid)}}>
+                            <IconButton >
                                 <ViewDayOutlined />
                             </IconButton>
                         }
@@ -22,6 +23,7 @@ const MainStore = ({store}) => {
                             {`${store.address}  -  ${store.postal_code}`}
                            </Typography>
                         </CardContent>
+                    </CardActionArea>
              </Card>
     )
 }

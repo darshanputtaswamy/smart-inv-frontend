@@ -10,6 +10,10 @@ import {
 } from 'redux/actions/InventoryActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
 const columns = [
   {title: "iid", field: "iid", hidden: true},
@@ -35,7 +39,9 @@ export default function Inventory() {
     console.log(inventory)
 }, [inventory])
 
- 
+const theme = useTheme();
+const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
+
   return (
 
 <Grid container spacing={2} style={{ marginTop:'2px'}} >
@@ -43,13 +49,32 @@ export default function Inventory() {
   <Grid item xs={12}>
   <div style={{ height: '70Vh', width: '100%' }}>
       <MaterialTable
-        title="Inventory"
+        title={shouldShowTitle?"Inventory":""}
         columns={columns}
         data={inventory}
+        icons={{
+          Add: () => <AddBoxSharpIcon style={{ color: "#2a0a4e" }} />,
+        }}
         options={{
           grouping: true,
-          defaultExpanded: true
-
+          defaultExpanded: true,
+          headerStyle: {
+            lineHeight: '2.5rem',
+            backgroundColor: '#2a0a4e',
+            color: '#FFF',
+          },
+          rowStyle: {
+            fontFamily: '"Roboto","Helvetica","Arial","sans-serif"'
+          },
+          searchFieldStyle: {
+            width: '100%',
+            padding: '0px',
+            margin: '0px'
+        },
+        actionsCellStyle:{
+          backgroundColor: '#757cc9',
+          width:'7%'
+        },
         }}
         components={{
           Container: (props) => <Paper {...props}  />

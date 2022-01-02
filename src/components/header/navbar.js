@@ -20,7 +20,14 @@ const Navbar = ({ navLinks }) => {
             key={`${title}${i}`}
             href={path}
             variant="button"
-            sx={{ color: `white`, opacity: 1 }}
+            onClick={navLinks.onClick}
+            sx={{ color: `white`, opacity: 1, textDecoration: 'none' , borderRadius:'2px', padding: '2px 25px 2px 25px', '&:hover': {
+              cursor: 'pointer',
+              backgroundColor: 'white',
+              color:'black',
+              padding: '2px 25px 2px 25px',
+              borderRadius:'2px',
+            }}}
           >
             {title}
           </MuiNextLink>
@@ -32,13 +39,3 @@ const Navbar = ({ navLinks }) => {
 
 export default Navbar;
 
-
-
-  
-const styles = {
-  
-  logo: {
-    mr: [null, null, null, null, 6, null, 12],
-  },
-   
-};
