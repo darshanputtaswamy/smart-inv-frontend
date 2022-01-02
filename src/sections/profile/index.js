@@ -14,6 +14,8 @@ import { Grid, Dialog,DialogTitle,DialogContent,DialogContentText, DialogActions
     CardContent,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import defaultProfile from 'assets/images/abstract-user-flat-4.svg';
+import Image from 'next/image'
 
 import {
   getUserProfile,
@@ -126,36 +128,24 @@ const Profile = () => {
         <>
         <Grid container spacing={1}>
         <Grid  item xs={12} >
-        <Stack spacing={2} direction="row" justifyContent="end">
-        <Button raised="true"  variant="contained"  color="primary" onClick={handleClickPasswordChangeOpen} >
-            Change Password
-        </Button>
 
-        <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
-            Edit Profile
-        </Button>
-      </Stack>
         </Grid>
 
-        <Grid  item xs={12} lg={12}>
+        <Grid  item xs={12} sm={12} md={6} lg={4}>
         <Card  elevation={3}>
-              <CardHeader title={'Profile Details'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Profile Details'} >
+                  
+                </CardHeader>
                   <CardContent>
+                  <div style={{margin:'0 auto'}}>
+                  <Image src={defaultProfile} loading="lazy" alt="Image profile" width="200" height="200"/>
+                  </div>
                   <Table>
                       <TableBody>
                         
-                      <TableRow>
-                          <TableCell>
-                          User ID
-                          </TableCell>
-                          <TableCell>
-                          {profile['id']}
-                          </TableCell>
-                          </TableRow>
-
                           <TableRow>
                           <TableCell>
-                          User Name
+                        <b> User Name</b>
                           </TableCell>
                           <TableCell>
                           {profile['name']}
@@ -165,7 +155,7 @@ const Profile = () => {
 
                           <TableRow>
                           <TableCell>
-                         Email
+                          <b> Email</b>
                           </TableCell>
                           <TableCell>
                           {profile['email']}
@@ -174,7 +164,7 @@ const Profile = () => {
 
                           <TableRow>
                           <TableCell>
-                         Phone
+                          <b> Phone</b>
                           </TableCell>
                           <TableCell>
                           {profile['phone']}
@@ -182,38 +172,46 @@ const Profile = () => {
                           </TableRow>
 
                           <TableRow>
-                          <TableCell>
-                            Role
-                          </TableCell>
-                          <TableCell>
-                          { profile['role']}
+                          <TableCell colSpan={12}>
+     
+                          <Button raised="true"  variant="contained"  color="primary" onClick={handleClickOpen} >
+                          Edit Profile
+                           </Button>
                           </TableCell>
                           </TableRow>
+
+                          
+                          <TableRow>
+                          <TableCell colSpan={12}>
+                          <Button raised="true"  variant="contained"  color="primary" onClick={handleClickPasswordChangeOpen} >
+                            Change Password
+                          </Button>
+                          </TableCell>
+                          </TableRow>
+
+                     
+
                       </TableBody>
                   </Table>
                   </CardContent>
               </Card>
         </Grid>
-        <Grid  item xs={12} lg={12}>
+        <Grid  item xs={12} sm={12} md={6} lg={8}>
 
         <Card  elevation={3}>
-              <CardHeader title={'Owned Stores'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owned Stores'} />
                   <CardContent>
                   <Table>
                   <TableHead>
                     <TableRow>
-                        <TableCell>Store ID</TableCell>
-                        <TableCell>Store Type</TableCell>
-                        <TableCell>Store Name</TableCell>
-                        <TableCell>Store Address</TableCell>
+                        <TableCell><b> Store Type</b> </TableCell>
+                        <TableCell><b> Store Name</b> </TableCell>
+                        <TableCell><b> Store Address</b> </TableCell>
                     </TableRow>
                     </TableHead>
                       <TableBody>                      
                   {stores.map((store,index) => (
                       <TableRow>  
-                                    <TableCell>
-                                    {store['bid']}
-                                    </TableCell>
                                     <TableCell>
                                     {store['btype']}
                                     </TableCell>

@@ -161,3 +161,22 @@
 .MuiTableSortLabel-root.MuiTableSortLabel-hover{
   color: white !important;
 }
+
+
+
+
+@media print {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+
+}

@@ -7,17 +7,21 @@ import Paper from '@mui/material/Paper';
 
 const storeTypes = [
   {
-    value: 'BAR',
+    value: 'Bar',
     label: 'Bar',
   },
   {
-    value: 'Groceries',
-    label: 'Groceries',
+    value: 'Footwear',
+    label: 'Footwear',
   },
   {
-    value: 'RetailsOutlets',
-    label: 'Retails Outlets',
-  }
+    value: 'Retail',
+    label: 'Retail',
+  },
+  {
+    value: 'Clothing',
+    label: 'Clothing',
+  },
 ];
 
 export default function StoreDetailsEF({formState, setFormState }) {

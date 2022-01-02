@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 import { makeStyles } from '@mui/styles'
 import MuiNextLink from 'components/MuiNextLink';
-
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
@@ -88,7 +88,7 @@ export default function Breadcrumb({ routeSegments , currentRouteName }) {
 <Paper elevation={8} >
 <div className={classes.conatinerDiv}>
 <Breadcrumbs
-    separator={<Icon className="text-hint">navigate_next</Icon>}
+    separator={<ChevronRightIcon />}
     className={classes.Breadcrumbs}
 >
     {routeSegments

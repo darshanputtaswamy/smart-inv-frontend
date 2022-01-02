@@ -32,14 +32,14 @@ const Store = ({Details}) => {
         <Grid  item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
-                <CardHeader title={'Store Details'} />
+                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Store Details'} />
                        <CardContent>
                 <Table>
                       <TableBody>
                         
                       <TableRow>
                           <TableCell>
-                          Store ID
+                          <b>Store ID</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['bid']}
@@ -48,7 +48,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          Store Type
+                          <b> Store Type</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['btype']}
@@ -58,7 +58,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          GST/Verification ID
+                          <b>GST/Verification ID</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['gst_number']}
@@ -67,7 +67,7 @@ const Store = ({Details}) => {
 
                         <TableRow>
                           <TableCell>
-                            Address
+                          <b> Address</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['address']} - {Details[0]['postal_code']}
@@ -84,14 +84,14 @@ const Store = ({Details}) => {
         <Grid item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
-                <CardHeader title={'Owner Details'} />
+                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owner Details'} />
                        <CardContent>
                 <Table>
                       <TableBody>
                         
                       <TableRow>
                           <TableCell>
-                          Owner Username
+                          <b> Owner Username</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['owner']}
@@ -100,7 +100,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                         Owner Email
+                          <b> Owner Email</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['owner_email']}
@@ -110,7 +110,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          Owner Phone Number
+                          <b> Owner Phone Number</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['owner_phone']}
@@ -120,7 +120,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          Alternate Phone Number
+                          <b> Alternate Phone Number</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['owner_phone']}
@@ -135,14 +135,14 @@ const Store = ({Details}) => {
 
         <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
-              <CardHeader title={'Subscription Details'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Subscription Details'} />
                   <CardContent>
                   <Table>
                       <TableBody>
                         
                       <TableRow>
                           <TableCell>
-                          Subscripted Plan
+                          <b> Subscripted Plan</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['sub_plan_name']}
@@ -151,7 +151,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          Subscribed Date
+                          <b>Subscribed Date</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['subscribed_date']}
@@ -161,7 +161,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                         Token
+                          <b>Token</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['subscription_token']}
@@ -171,7 +171,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                            Status
+                          <b> Status</b> 
                           </TableCell>
                           <TableCell>
                           { Details[0]['subscription_status']}
@@ -186,14 +186,14 @@ const Store = ({Details}) => {
         </Grid>
         <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
-              <CardHeader title={'Plan Details'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Plan Details'} />
                   <CardContent>
                   <Table>
                       <TableBody>
                         
                       <TableRow>
                           <TableCell>
-                              Retention Limit
+                          <b> Retention Limit</b> 
                             </TableCell>
                           <TableCell>
                           {Details[0]['retention_limit']}
@@ -202,7 +202,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                            Particular Limit
+                          <b>  Particular Limit</b> 
                           </TableCell>
                           <TableCell>
                           {Details[0]['particular_limit']}
@@ -212,7 +212,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                          User Limit
+                          <b> User Limit</b>
                           </TableCell>
                           <TableCell>
                           {Details[0]['user_limit']}
@@ -222,7 +222,7 @@ const Store = ({Details}) => {
 
                           <TableRow>
                           <TableCell>
-                            Plan Period
+                          <b>  Plan Period</b>
                           </TableCell>
                           <TableCell>
                           { Details[0]['plan_period']}

@@ -61,7 +61,7 @@ return  (
 
     statementSummary  ? (
     <div  ref={ref}>
-    
+    <header sx={{display:'table-header-group'}}>
     <Box
         sx={{
           display: 'flex',
@@ -93,9 +93,9 @@ return  (
 
         </div>
       </Box>
+      </header>
 
-
-      <div >
+      <main >
 
               <TableContainer component={Paper}>
               <Table aria-label="simple table">
@@ -258,7 +258,7 @@ return  (
     </Grid>
 
 </Paper>
-</div>
+</main>
     </div>
     ):<div> Loading... </div>
     )

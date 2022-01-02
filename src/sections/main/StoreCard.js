@@ -28,7 +28,7 @@ const StoreCard = () => {
      const [activeStep, setActiveStep] = useState(0);
      const [ formState, setFormState ] = useState({
       name:'',
-      type:'BAR',
+      type:'Bar',
       address:'',
       pincode:'',
       owner:'',

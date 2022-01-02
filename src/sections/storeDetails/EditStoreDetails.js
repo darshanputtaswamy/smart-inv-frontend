@@ -27,7 +27,7 @@ const [open, setOpen] = useState(false);
 
   const [ formState, setFormState ] = useState({
     name:'',
-    type:'BAR',
+    type:'Bar',
     address:'',
     pincode:'',
     owner:'',
