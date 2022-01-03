@@ -36,7 +36,10 @@ export default function CheckOut({ formState, selectedPlan }) {
                 Plan Details
               </Typography>
               </>
-              } />
+              }
+              titleTypographyProps={{variant:'h7' }}
+              
+              />
             <CardContent>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -86,7 +89,9 @@ export default function CheckOut({ formState, selectedPlan }) {
                 Store Details
               </Typography>
               </>
-              } />
+              }
+              titleTypographyProps={{variant:'h7' }}
+              />
             <CardContent>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -158,7 +163,9 @@ export default function CheckOut({ formState, selectedPlan }) {
                 Owner Details
               </Typography>
               </>
-              } />
+              } 
+              titleTypographyProps={{variant:'h7' }}
+              />
             <CardContent>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -209,7 +216,9 @@ export default function CheckOut({ formState, selectedPlan }) {
                 Payment Summary
               </Typography>
               </>
-              } />
+              } 
+              titleTypographyProps={{variant:'h7' }}
+              />
             <CardContent>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">

@@ -133,7 +133,7 @@ const Profile = () => {
 
         <Grid  item xs={12} sm={12} md={6} lg={4}>
         <Card  elevation={3}>
-              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Profile Details'} >
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Profile Details'}  titleTypographyProps={{variant:'h7' }}>
                   
                 </CardHeader>
                   <CardContent>
@@ -180,7 +180,7 @@ const Profile = () => {
                           </TableCell>
                           </TableRow>
 
-                          
+
                           <TableRow>
                           <TableCell colSpan={12}>
                           <Button raised="true"  variant="contained"  color="primary" onClick={handleClickPasswordChangeOpen} >
@@ -199,7 +199,7 @@ const Profile = () => {
         <Grid  item xs={12} sm={12} md={6} lg={8}>
 
         <Card  elevation={3}>
-              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owned Stores'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owned Stores'} titleTypographyProps={{variant:'h7' }}/>
                   <CardContent>
                   <Table>
                   <TableHead>

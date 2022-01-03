@@ -100,7 +100,7 @@ const StoreCard = () => {
          <Grid  item xs={12} lg={12}>
          <Grid container spacing={1}>
         {lobList.map((store,index) => (
-              <Grid  key={index} item xs={12} lg={6}>
+              <Grid  key={index} item xs={12} lg={3}>
                 <Store store={store} />
               </Grid>
         ))

@@ -32,7 +32,7 @@ const Store = ({Details}) => {
         <Grid  item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
-                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Store Details'} />
+                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Store Details'} titleTypographyProps={{variant:'h7' }}/>
                        <CardContent>
                 <Table>
                       <TableBody>
@@ -84,7 +84,7 @@ const Store = ({Details}) => {
         <Grid item  xs={12} lg={6} >
                 <Card  elevation={3}>
 
-                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owner Details'} />
+                <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Owner Details'} titleTypographyProps={{variant:'h7' }}/>
                        <CardContent>
                 <Table>
                       <TableBody>
@@ -135,7 +135,7 @@ const Store = ({Details}) => {
 
         <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
-              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Subscription Details'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Subscription Details'} titleTypographyProps={{variant:'h7' }}/>
                   <CardContent>
                   <Table>
                       <TableBody>
@@ -186,7 +186,7 @@ const Store = ({Details}) => {
         </Grid>
         <Grid item  xs={12} lg={6}>
               <Card  elevation={3}>
-              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Plan Details'} />
+              <CardHeader sx={{background:"#2a0a4e", color:"#fff"}} title={'Plan Details'} titleTypographyProps={{variant:'h7' }}/>
                   <CardContent>
                   <Table>
                       <TableBody>
