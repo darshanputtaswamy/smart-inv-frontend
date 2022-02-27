@@ -12,8 +12,10 @@ import { useReactToPrint } from 'react-to-print';
 
 
 
+
+
 export default function StatementIndex({lobDetails}) {
-    const { selectedStatement = [] } = useSelector((state) => state.store)
+    const { selectedStatement = {} } = useSelector((state) => state.store)
     const dispatch = useDispatch();
     const router = useRouter();
     const { store,id } = router.query; 
@@ -22,13 +24,17 @@ export default function StatementIndex({lobDetails}) {
     let [ viewMode, setViewMode] = useState(true);
     let [ disableOpen, setDisableOpen] = useState(true);
     useEffect(() => {
-      dispatch(getStatementRegistoryById(store,id)) 
-  }, [isDirty, dispatch])
+        if(store && id)  dispatch(getStatementRegistoryById(store,id)) 
+  }, [store,id, isDirty, dispatch])
 
+  
+  
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-  });
+    documentTitle: (!selectedStatement || !selectedStatement[0]) ? 'Statement': `Statement ${selectedStatement.fdate} - ${selectedStatement.tdate}`
+   
+  }, [selectedStatement]);
   
   const handleDelete = function(e){
     
@@ -44,13 +50,11 @@ export default function StatementIndex({lobDetails}) {
 
   useEffect(() => {
     console.log(selectedStatement)
-    if ( selectedStatement.length == 1 ) {
-        if (selectedStatement[0].previous_sid){
+        if (selectedStatement.previous_sid){
             setDisableOpen(true)
         }else{
             setDisableOpen(false)
         }
-    }
   }, [selectedStatement])
 
   return (
@@ -76,7 +80,7 @@ export default function StatementIndex({lobDetails}) {
             </Stack>
         </Grid> 
         <Grid item xs={12}>
-            {viewMode ? <div> <ViewStatement componentRef={componentRef} lobDetails={lobDetails} statementSummary={selectedStatement[0]} /> </div>: <div> <EditStatement setParentIsDirty={setParentIsDirty} statementSummary={selectedStatement[0]} disableOpen={disableOpen} setViewMode={setViewMode}/> </div>}
+            {viewMode ? <div> <ViewStatement componentRef={componentRef} lobDetails={lobDetails} statementSummary={selectedStatement} /> </div>: <div> <EditStatement setParentIsDirty={setParentIsDirty} statementSummary={selectedStatement} disableOpen={disableOpen} setViewMode={setViewMode}/> </div>}
         </Grid> 
     </Grid>
    

@@ -7,9 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import StoreDetailsEF from '../main/StoreDetailsEF';
+import { useConfirm } from "material-ui-confirm";
 
 import { 
-    updateLobDetails
+    updateLobDetails,
+    deleteLob,
+    getLobList
+    
   } from 'redux/actions/LobActions'
 
   import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +25,7 @@ export default function FormDialog({storeObj}) {
 const dispatch = useDispatch();
 const router = useRouter();
 const { store } = router.query; 
-
+const confirm = useConfirm();
 
 const [open, setOpen] = useState(false);
 
@@ -64,8 +68,25 @@ useEffect(() => {
         setOpen(false);
     }
 
+ 
+    const handleDelete = item => {
+      confirm({ description: `This will permanently delete store and all details.` })
+        .then(() => { console.log("should delete"); 
+          dispatch(deleteLob(store)).then((e)=> {
+            console.log("deleted") 
+            router.push('/main')
+        })  })
+        .catch(() => console.log("Deletion cancelled."));
+    };
+
+
+
   return (
     <div>
+ 
+      <Button variant="outlined" onClick={handleDelete}>
+        Delete Store
+      </Button>
       <Button variant="outlined" onClick={handleClickOpen}>
         Edit Store Details
       </Button>

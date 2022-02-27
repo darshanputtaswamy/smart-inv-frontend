@@ -24,6 +24,19 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
 
+function getDateFormat(d){
+  if(d){
+    
+    let date = new Date(d)
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+    let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
+    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+    return (`${da}-${mo}-${ye}`);
+  }else{
+    return d
+  }
+}
+
 const columns = [
   { field: 'sid', title: 'ID', flex: 0.5, },
   { field: 'previous_sid', title: 'Previous Statement', flex: 0.5,},
@@ -36,11 +49,10 @@ const columns = [
   dateSetting: {
     format: 'dd/MON/yyyy'
   }, },
-  { field: 'auto_total', title: 'Auto Total',flex: 1, },
-  { field: 'actual_total', title: 'Actual Total',flex: 1, },
+  { field: 'auto_total', title: 'Total',flex: 1, },
   { field: 'exp_total', title: 'Expenditure',flex: 1, },
-  { field: 'cash_paid', title: 'Cash Paid',flex: 1, },
   { field: 'card_paid', title: 'Card Paid',flex: 1,},
+  { field: 'cash_paid', title: 'Cash Paid',flex: 1, },
   { field: 'cash_balance', title: 'Cash Balance',flex: 1, },
   { field: 'exp_comments', title: 'Comments',flex: 1, hidden:true},
   { field: 'created_at', title: 'Created',flex: 1,   type: 'date',},
@@ -87,8 +99,8 @@ export default function Statement() {
   }
 
   useEffect(() => {
-    dispatch(getStatementRegistory(store)) 
-}, [dispatch])
+    if(store) dispatch(getStatementRegistory(store)) 
+}, [store, dispatch])
 
 const theme = useTheme();
 const smUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -178,11 +190,12 @@ if (smUp) {
                                 }}
                             >
                               {
-                                  registory.map(function(e){
-
+                                  registory.sort(function(a,b){
+                                    return b.sid - a.sid;
+                                  }).map(function(e, index){
                                     return (
-                                      <MenuItem value={e.sid}>
-                                          {e.sid} - [ {e.fdate } - {e.tdate}] [{e.status}]
+                                      <MenuItem key={index} value={e.sid}>
+                                          {e.sid} - [ { getDateFormat(e.fdate) } - { getDateFormat(e.tdate)}] [{e.status}]
                                       </MenuItem>
                                     )
                                   })

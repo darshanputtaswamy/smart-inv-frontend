@@ -38,6 +38,7 @@ const StatementReducer = function (state = initialState, action) {
             newArray[index].open = action.payload.newData.open //changing value in the new array
             newArray[index].received = action.payload.newData.received
             newArray[index].closed = action.payload.newData.closed
+            newArray[index].sales = action.payload.newData.sales
             newArray[index].actual_total = action.payload.newData.actual_total
             newArray[index].auto_total = action.payload.newData.auto_total
 
@@ -52,7 +53,7 @@ const StatementReducer = function (state = initialState, action) {
         case GET_STATEMENT_REGISTORY_RECORD_BY_ID: {
             return {
                 ...state,
-                selectedStatement: state.registory.filter(item => item.sid == action.payload.sid),
+                selectedStatement: action.payload,
             }
         }
         case GET_STATEMENT_REGISTORY_RECORDS: {

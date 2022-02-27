@@ -55,6 +55,7 @@ const StoreCard = () => {
       }else if(e.target.id === 'finish'){
         setActiveStep((prevActiveStep) => prevActiveStep-prevActiveStep);
         setOpen(false);
+          dispatch(getLobList()) 
       }else{
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }

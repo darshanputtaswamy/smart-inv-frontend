@@ -45,8 +45,8 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
         const { store, id } = router.query;
     
         useEffect(() => {
-            dispatch(getStatement(store, id))
-        }, [dispatch])
+            if(store && id)   dispatch(getStatement(store, id))
+        }, [store, id,dispatch])
     
         useEffect(()=>{
             console.log(statementSummary)
@@ -102,6 +102,7 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
         { field: 'itype', title: 'Perticular Type', editable: 'never',  },
         { field: 'name', title: 'Perticular Name', editable: 'never',  },
         { field: 'quantity', title: 'Quantity/Units', editable: 'never' },
+        { field: 'mou', title: 'UoM', editable: 'never' },
         { field: 'id', title: 'id', hidden: true, editable: 'never' },
         { field: 'bid', title: 'bid', hidden: true, editable: 'never' },
         { field: 'sid', title: 'sid', hidden: true, editable: 'never' },
@@ -118,7 +119,9 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
                         let received = isNaN(data.received) ? 0 : data.received;
                         let open = isNaN(data.open) ? 0 : data.open;
                         let closed = isNaN(data.closed) ? 0 : data.closed;
-                        data.actual_total = (parseInt(received) + parseInt(open) - parseInt(closed)) * parseFloat(data.cost);
+                        data.sales = (parseFloat(received) + parseFloat(open) - parseFloat(closed))
+                        data.actual_total = (parseFloat(received) + parseFloat(open) - parseFloat(closed)) * parseFloat(data.cost);
+                        data.auto_total =  data.actual_total;
                         props.onRowDataChange(data);
                     }}
                     value={props.value}
@@ -138,7 +141,9 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
                         let received = isNaN(data.received) ? 0 : data.received;
                         let open = isNaN(data.open) ? 0 : data.open;
                         let closed = isNaN(data.closed) ? 0 : data.closed;
-                        data.actual_total = (parseInt(received) + parseInt(open) - parseInt(closed)) * parseFloat(data.cost);
+                        data.sales = (parseFloat(received) + parseFloat(open) - parseFloat(closed))
+                        data.actual_total = (parseFloat(received) + parseFloat(open) - parseFloat(closed)) * parseFloat(data.cost);
+                        data.auto_total =  data.actual_total;
                         props.onRowDataChange(data);
                     }}
                     value={props.value}
@@ -157,14 +162,16 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
                         let received = isNaN(data.received) ? 0 : data.received;
                         let open = isNaN(data.open) ? 0 : data.open;
                         let closed = isNaN(data.closed) ? 0 : data.closed;
-                        data.actual_total = (parseInt(received) + parseInt(open) - parseInt(closed)) * parseFloat(data.cost);
+                        data.sales = (parseFloat(received) + parseFloat(open) - parseFloat(closed))
+                        data.actual_total = (parseFloat(received) + parseFloat(open) - parseFloat(closed)) * parseFloat(data.cost);
+                        data.auto_total =  data.actual_total;
                         props.onRowDataChange(data);
                     }}
                     value={props.value}
                 />
             )
         },
-
+/*
         {
             field: 'actual_total',
             title: 'Actual Total', editComponent: props => (
@@ -176,6 +183,7 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
                 />
             )
         },
+        */
         { field: 'sales', title: 'Sales', editable: 'never' },
         { field: 'auto_total', title: 'Auto Total', editable: 'never' },
         { field: 'cost', title: 'Cost/Unit', editable: 'never' },

@@ -15,6 +15,7 @@ import {
     Stack
 } from '@mui/material'
 import FormDialog from './EditStoreDetails';
+import { ConfirmProvider } from "material-ui-confirm";
 
 const Store = ({Details}) => {
 
@@ -25,7 +26,10 @@ const Store = ({Details}) => {
       <Grid container spacing={2}>
       <Grid  item xs={12}  >
       <Stack direction="row" justifyContent="end">
+        
+          <ConfirmProvider>
           <FormDialog storeObj={Details[0]}/>
+          </ConfirmProvider>
       </Stack>
       </Grid>
 

@@ -11,7 +11,7 @@ import {
 
 const Verification = ({showForm}) => {
     const [otp, setOtp] = useState('');
-    const {initializing,sessionUser,verifyUser,error} = useContext(Authcontext);
+    const {initializing,sessionUser,verifyUser,resendOtp,error} = useContext(Authcontext);
     const router = useRouter();
 
     useEffect(() => {
@@ -34,6 +34,8 @@ const Verification = ({showForm}) => {
           if(otp.length == 4){
               verifyUser(otp)
           }
+        }else if(e.target.id == "resend"){
+              resendOtp()
         }
         
     };
@@ -71,14 +73,14 @@ const Verification = ({showForm}) => {
         />
       
        <Box as="div" sx={{display:'flex', flexDirection:"column", maxWidth:'350px' , width:'250px',  rowGap: '10px',  justifyContent: 'space-between' , paddingTop:'25px'}} >
-        <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="verify" variant="contained" fullWidth>
+        <Button  style={{ padding: "5px 20px" }} onClick={handleSubmit} id="verify" variant="contained" fullWidth>
             Verify
          </Button>
          <Box as="div" sx={{display:'flex',  justifyContent: 'space-between' , padding:'5px'}} >
-          <Button  style={{ padding: "15px 0px" }}  onClick={(e)=>{showForm("cleared")}} id="cleared" variant="outlined" width={'45%'} >
+          <Button  style={{ padding: "5px 20px" }}  onClick={(e)=>{showForm("cleared")}} id="cleared" variant="outlined" width={'45%'} >
         Cancel
         </Button>
-        <Button  style={{ padding: "15px 0px" }}  onClick={handleSubmit} id="resend" variant="contained" width={'45%'} >
+        <Button  style={{ padding: "5px 20px" }}  onClick={handleSubmit} id="resend" variant="contained" width={'45%'} >
         resend
         </Button>
         </Box>

@@ -20,12 +20,14 @@ import api from '/api.js'
 */
 export const GET_LOB_LIST = 'GET_LOB_LIST'
 export const GET_LOB_DETAILS = 'GET_LOB_DETAILS'
+export const DELETE_LOB_LIST = 'DELETE_LOB_LIST'
 export const GET_PLAN_LIST = 'GET_PLAN_LIST'
 export const UPDATE_LOB_DETAILS = 'UPDATE_LOB_DETAILS'
 export const GET_LOB_USER = 'GET_LOB_USER'
 export const CREATE_LOB_USER = 'CREATE_LOB_USER'
 export const UPDATE_LOB_USER = 'UPDATE_LOB_USER'
 export const DELETE_LOB_USER = 'DELETE_LOB_USER'
+
 
 export const getLobUserList = () => async(dispatch) => {
     return api.get('/lob/users').then((res) => {
@@ -116,6 +118,24 @@ export const updateLobDetails = (bid,newData)=> (dispatch) => {
         })
     }
 }
+
+export const deleteLob = (bid)=> async (dispatch) => {
+    if(bid){
+        await api.delete('/lob/'+bid).then((res) => {
+            console.log(res);
+            
+            dispatch({
+                type: DELETE_LOB_LIST,
+                payload: res.data,
+            })
+        })
+    }else{
+        dispatch({
+            type: 'PENDING',
+        })
+    }
+}
+
 
 export const getPlanList  = ()=> (dispatch) => {
     api.get('/management/plan_template' ).then((res) => {

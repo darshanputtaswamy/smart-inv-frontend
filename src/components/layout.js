@@ -47,15 +47,17 @@ export default function Layout({ children }) {
     )}
       {(router.route != '/') && (
     <ThemeProvider theme={theme}>
-        <Header/>
+        <Header ></Header>
         <main >
         <Conatiner maxWidth={false}>
 
         {loading > 0 && <Box sx={{ display: 'flex' }}>
-          <LinearProgress color="success" size={'5rem'} />
-        </Box>
+                         <LinearProgress color="success" size={'5rem'} />
+                         </Box>
         }
-          {children}
+    
+
+        {children} 
         </Conatiner>
         </main>
         { (router.route.indexOf('/main/[store]') > -1 ) && ( <Footer />)}

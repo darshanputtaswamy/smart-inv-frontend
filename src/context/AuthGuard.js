@@ -28,7 +28,7 @@ export function AuthGuard({ children }) {
     return <>{children}</>
   }
 
-  console.log("user not executing")
+  console.log(sessionUser)
   /* otherwise don't return anything, will do a redirect from useEffect */
   return null
 }

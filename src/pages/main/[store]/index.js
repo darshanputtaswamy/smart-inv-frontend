@@ -18,8 +18,8 @@ export default function StorePage() {
   const router = useRouter();
   const { store } = router.query; 
   useEffect(() => {
-    dispatch(getLobDetails(store)) 
-}, [dispatch])
+    if(store) dispatch(getLobDetails(store)) 
+}, [store, dispatch])
 
 
 

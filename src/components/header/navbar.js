@@ -19,6 +19,7 @@ const Navbar = ({ navLinks }) => {
           <MuiNextLink
             key={`${title}${i}`}
             href={path}
+            title={title}
             variant="button"
             onClick={navLinks.onClick}
             sx={{ color: `white`, opacity: 1, textDecoration: 'none' , borderRadius:'2px', padding: '2px 25px 2px 25px', '&:hover': {

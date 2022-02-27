@@ -45,8 +45,8 @@ export const useAxiosLoader = () => {
         
       if(error.response 
         && error.response.data.message 
-        && (  error.response.data.message.indexOf('Unable to varify your credentials - TokenExpiredError: jwt expired')
-        || error.response.data.message.indexOf('Authentication failed. User is logged in using different device'))
+        && (  error.response.data.message.indexOf('Unable to varify your credentials - TokenExpiredError: jwt expired') > -1 
+        || error.response.data.message.indexOf('Authentication failed. User is logged in using different device')) > -1
         ){
 
         if(error.response.data.message.indexOf('Unable to varify your credentials - TokenExpiredError: jwt expired')> 0){

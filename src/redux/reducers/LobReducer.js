@@ -1,5 +1,6 @@
 import {
     GET_LOB_LIST,
+    DELETE_LOB_LIST,
     GET_LOB_DETAILS,
     GET_PLAN_LIST,
     UPDATE_LOB_DETAILS,
@@ -55,6 +56,18 @@ const LobReducer = function (state = initialState, action) {
                 lobList: [...action.payload],
             }
         }
+        case DELETE_LOB_LIST:{
+            console.log(action.payload.bid);
+            console.log(state.lobList)
+            console.log(state.lobList.filter(item => item.bid !== action.payload.bid))
+            let newlobList= state.lobList.filter(item => item.bid !== action.payload.bid);
+
+            return {
+                ...state,
+                lobList: newlobList,
+            }
+        }
+
         case GET_LOB_DETAILS: {
             return {
                 ...state,

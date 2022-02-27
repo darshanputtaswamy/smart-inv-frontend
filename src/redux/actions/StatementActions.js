@@ -31,10 +31,14 @@ export const getStatementRegistory = (bid) => (dispatch) => {
 }
 
 export const getStatementRegistoryById = (bid, sid) => (dispatch) => {
-    dispatch({
-        type: GET_STATEMENT_REGISTORY_RECORD_BY_ID,
-        payload: { bid, sid },
+    api.get(`/lob/${bid}/statement_registery/${sid}`).then((res) => {
+
+        dispatch({
+            type: GET_STATEMENT_REGISTORY_RECORD_BY_ID,
+            payload: res.data[0],
+        })
     })
+    
 }
 
 export const addRowInStatementRegistory = (bid, data) => async (dispatch) => {

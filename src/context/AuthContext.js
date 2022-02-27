@@ -17,13 +17,32 @@ const isValidToken = (accessToken) => {
     return decodedToken.exp > currentTime
 }
 
-
+function setLocalStorage(key, value) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      // catch possible errors:
+      // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+    }
+  }
+  
+  function getUserFromLocalStorage(initialValue) {
+    try {
+      const value = window.localStorage.getItem('user');
+      const accessToken =  window.localStorage.getItem('accessToken')
+      api.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+      return value ? JSON.parse(value) : initialValue;
+    } catch (e) {
+      // if error, return initial value
+      return initialValue;
+    }
+  }
 
 export const AuthProvider = ({children}) =>{
     const [initializing,setInitializing ] = useState(false);
-    const [sessionUser, setSessionUser] = useState(null);
+    const [sessionUser, setSessionUser] = useState(() => getUserFromLocalStorage(null));
     const [error, setError] = useState(null);
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(()=>sessionUser?sessionUser.isverified:false);
 
     const setSession = async (obj) => {
         if (obj) {
@@ -111,6 +130,10 @@ export const AuthProvider = ({children}) =>{
         console.log('Logout');
         clearSession();
     }
+
+    const resendOtp = async () =>{
+        const response = await api.post('/user/resendVerificationCode')
+    }
  
  
       let authObj = 
@@ -122,7 +145,8 @@ export const AuthProvider = ({children}) =>{
         login,
         logout,
         verifyUser,
-        clearSession
+        clearSession,
+        resendOtp
     };
     console.log(authObj);
     

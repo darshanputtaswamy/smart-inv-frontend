@@ -78,7 +78,13 @@ export default function Employee() {
 
   useEffect(() => {
       dispatch(getUserProfile()) 
-  }, [dispatch])
+  }, [ dispatch])
+
+  useEffect(() => {
+    dispatch(getLobUserList()) 
+}, [ dispatch])
+
+
   const theme = useTheme();
   const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
  
@@ -109,9 +115,7 @@ export default function Employee() {
     })
   }
 
-  useEffect(() => {
-    dispatch(getLobUserList()) 
-}, [dispatch])
+
 
 
   return (

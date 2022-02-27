@@ -1,12 +1,16 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef,useContext } from 'react';
+
+
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import MuiLink from '@mui/material/Link';
+import Authcontext from 'context/AuthContext';
 
 export const NextLinkComposed = forwardRef(function NextLinkComposed(props, ref) {
-  const { to, linkAs, href, replace, scroll, passHref, shallow, prefetch, locale, ...other } =
+  const { to, linkAs, href, replace, scroll, passHref, shallow, prefetch, locale, onClick, ...other } =
     props;
+    const {logout} = useContext(Authcontext);
 
   return (
     <NextLink
@@ -19,7 +23,13 @@ export const NextLinkComposed = forwardRef(function NextLinkComposed(props, ref)
       passHref={passHref}
       locale={locale}
     >
-      <a ref={ref} {...other} />
+      <a   onClick={(e)=>{
+        
+        if(e.target.innerText ==  "LOGOUT"){
+            console.log("LOGPUT");
+            logout();
+        }
+      }}  ref={ref} {...other} />
     </NextLink>
   );
 });
@@ -34,6 +44,7 @@ const MuiNextLink = forwardRef(function Link(props, ref) {
     href,
     noLinkStyle,
     role, // Link don't have roles.
+    onClick,
     ...other
   } = props;
 
@@ -66,6 +77,7 @@ const MuiNextLink = forwardRef(function Link(props, ref) {
       className={className}
       ref={ref}
       to={href}
+      onClick={onClick}
       {...other}
     />
   );

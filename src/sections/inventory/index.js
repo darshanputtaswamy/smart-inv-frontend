@@ -1,6 +1,6 @@
 import React, { useState, useEffect,useRef } from 'react'
 import MaterialTable from "@material-table/core";
-import {Grid,Button,Paper} from '@mui/material'; 
+import {Grid,Button,Paper, TextField, MenuItem } from '@mui/material'; 
 import {
   getInventoryList,
   addRowInInventory,
@@ -17,10 +17,117 @@ import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
 const columns = [
   {title: "iid", field: "iid", hidden: true},
-  {field: 'itype', title: 'Perticular Type', },
-  {field: 'name', title: 'Perticular Name', },
-  {field: 'quantity', title: 'Quantity/Units',},
-  {field: 'price',  title: 'Price',}
+  {field: 'itemid',  title: 'Item #' , },
+  {field: 'seq',  title: 'Seq'  ,  editComponent: props => (
+    <TextField
+        id="Seq"
+        type="number"
+        onChange={e => {
+            var data = { ...props.rowData };
+            data.seq = e.target.value
+            props.onRowDataChange(data);
+        }}
+        value={props.value}
+    />
+)},
+  {field: 'itype', title: 'Item Category' },
+  {field: 'name', title: 'Item Name' },
+  {field: 'quantity', title: 'Unit/Quantity' ,  editComponent: props => (
+    <TextField
+        id="quantity"
+        type="number"
+        onChange={e => {
+            var data = { ...props.rowData };
+            data.quantity = e.target.value
+            props.onRowDataChange(data);
+        }}
+        value={props.value}
+    />
+)},
+  {field: 'mou',  title: 'UoM' ,  editComponent: props => (
+    <TextField
+        id="UoM"
+        select
+        onChange={e => {
+            var data = { ...props.rowData };
+            data.mou = e.target.value
+            props.onRowDataChange(data);
+        }}
+        value={props.value}
+
+    >
+    <MenuItem key={1} value="ml">ml</MenuItem>
+    <MenuItem key={1} value="pg">pg</MenuItem>
+    <MenuItem key={2} value="kg">kg</MenuItem>
+    <MenuItem key={3} value="Nos">Nos</MenuItem>
+    <MenuItem key={4} value="ltr">ltr</MenuItem>
+    <MenuItem key={5} value="grm">grm</MenuItem> 
+    </TextField>
+)},
+{field: 'price', title: 'Price ( after Tax)' ,  editComponent: props => (
+  <TextField
+      id="Price"
+      type="number"
+      onChange={e => {
+          var data = { ...props.rowData };
+          data.price = e.target.value
+          props.onRowDataChange(data);
+      }}
+      value={props.value}
+  />
+)},
+
+  {field: 'tax',  title: 'Tax' ,  editComponent: props => (
+    
+
+    <TextField
+    id="tax" 
+    select
+   value={props.value}
+       onChange={e => {
+        var data = { ...props.rowData };
+        data.tax = e.target.value
+        props.onRowDataChange(data);
+    }}
+    
+   fullWidth
+   >
+               <MenuItem key={1} value="0">Tax:0%</MenuItem>
+               <MenuItem key={2} value="0.1">Tax:0.1%</MenuItem>
+               <MenuItem key={3} value="0.25">Tax:0.25%</MenuItem>
+               <MenuItem key={4} value="0.03">Tax:3%</MenuItem>
+               <MenuItem key={5} value="0.05">Tax:5%</MenuItem>
+               <MenuItem key={6} value="0.12">Tax:12%</MenuItem>
+               <MenuItem key={7} value="0.18">Tax:18%</MenuItem>
+               <MenuItem key={8} value="0.23">Tax:23%</MenuItem> 
+           </TextField>
+)},
+  {field: 'minStock',  title: 'Min Stock' ,  editComponent: props => (
+    <TextField
+        id="minStock"
+        type="number"
+        onChange={e => {
+            var data = { ...props.rowData };
+            data.minStock = e.target.value
+        
+            props.onRowDataChange(data);
+        }}
+        value={props.value}
+    />
+)},
+  {field: 'maxStock',  title: 'Max Stock' ,  editComponent: props => (
+    <TextField
+        id="maxStock"
+        type="number"
+        onChange={e => {
+            var data = { ...props.rowData };
+            data.maxStock = e.target.value
+          
+            props.onRowDataChange(data);
+        }}
+        value={props.value}
+    />
+)}
   ]
 
 
@@ -31,8 +138,8 @@ export default function Inventory() {
     const { store } = router.query; 
 
     useEffect(() => {
-      dispatch(getInventoryList(store)) 
-  }, [dispatch])
+      if(store) dispatch(getInventoryList(store)) 
+  }, [store,dispatch])
 
 
   useEffect(() => {

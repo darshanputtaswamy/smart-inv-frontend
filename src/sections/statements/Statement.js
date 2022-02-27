@@ -17,22 +17,29 @@ import Box from '@mui/material/Box';
 import { Grid, MenuItem, TextField } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    height: 'auto !important',
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: '#2a0a4e',
       color: theme.palette.common.white,
+      padding: 0
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
+      padding: 0
     },
   }));
   
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    height: '5px',
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
+      padding: 0
     },
     // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
+      padding: 0
+
     },
   }));
 
@@ -45,16 +52,12 @@ export const  Statement = React.forwardRef((props, ref) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { store, id } = router.query;
+    console.log(store)
+    console.log(id)
     useEffect(() => {
-        dispatch(getStatement(store, id))
-    }, [dispatch])
+      if(store && id)  dispatch(getStatement(store, id))
+    }, [store, id,dispatch])
 
-    useEffect(() => {
-        console.log(statement)
-        console.log(lobDetails)
-        console.log(statementSummary)
-
-    }, [statement])
     
 return  (
 
@@ -74,20 +77,26 @@ return  (
         component={Paper}
       >
         <div>
-            <Typography variant="h5" component="h5">
+            <Typography variant="h6" component="h5">
             <b>{lobDetails.bname}</b>
         </Typography> 
-        <Typography variant="h6" component="p">
+        <Typography variant="h7" component="p">
             {lobDetails.address} - {lobDetails.postal_code}
         </Typography> 
         </div>
         <div>
         <div sx={{textAlign:'end'}}>
-        <Typography variant="h6" component="p">
-           From Date: { (new Date(statementSummary.fdate)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+        <Typography component="div">
+          <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+          <div> 
+           <b>From Date</b></div><div> { (new Date(statementSummary.fdate)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+           </Box>
         </Typography> 
-        <Typography variant="h6" component="p">
-           To Date: { (new Date(statementSummary.tdate)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+        <Typography  component="div">   
+        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+          <div> 
+          <b>To Date</b></div><div> { (new Date(statementSummary.tdate)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+        </Box>       
         </Typography> 
         </div>
 
@@ -100,162 +109,99 @@ return  (
               <TableContainer component={Paper}>
               <Table aria-label="simple table">
                   <TableHead>
-                  <TableRow>
-                        <StyledTableCell component="th" scope="row" align="right">Type</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Name</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Quantity</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Open</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Received</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Total</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Closed</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Sales</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Cost/Unit</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Auto Total(₹)</StyledTableCell>
-                        <StyledTableCell component="th" scope="row" align="right">Actual Total(₹)</StyledTableCell>
+                  <TableRow style={{height: 2}}>
+                        <StyledTableCell  component="th" scope="row" align="right">Type</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Name</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Quantity</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Open</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Received</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Total</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Closed</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Sales</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Cost/Unit</StyledTableCell>
+                       {/* <StyledTableCell component="th" scope="row" align="right">Auto Total(₹)</StyledTableCell> */}
+                        <StyledTableCell component="th" scope="row" align="right"> Total(₹)</StyledTableCell>
                    </TableRow>
                     </TableHead>
                   <TableBody>
-          {statement.map(function(item){
+          {statement.map(function(item,index){
 
             return (
-            <>
-                        <StyledTableRow >
-                        <StyledTableCell align="right">{item.itype}</StyledTableCell>
+                         <StyledTableRow key={index}>
+                        <StyledTableCell  align="right">{item.itype}</StyledTableCell>
                     
-                        <StyledTableCell align="right">{item.name}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.name}</StyledTableCell>
                    
-                        <StyledTableCell align="right">{item.quantity}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.quantity == -1 ? 'Loose '+ item.mou: item.quantity + ' ' + item.mou}</StyledTableCell>
                      
-                        <StyledTableCell align="right">{item.open}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.open}</StyledTableCell>
                       
-                        <StyledTableCell align="right">{item.received}</StyledTableCell>
-                        <StyledTableCell align="right">{parseInt(item.received)+parseInt(item.open)}</StyledTableCell>
-                        <StyledTableCell align="right">{item.closed}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.received}</StyledTableCell>
+                        <StyledTableCell  align="right">{parseInt(item.received)+parseInt(item.open)}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.closed}</StyledTableCell>
 
-                        <StyledTableCell align="right">{item.sales}</StyledTableCell>
+                        <StyledTableCell  align="right">{item.sales}</StyledTableCell>
 
-                        <StyledTableCell align="right">{item.cost}</StyledTableCell>
-                        <StyledTableCell align="right">{parseFloat(item.auto_total).toFixed(2) }</StyledTableCell>
-                        <StyledTableCell align="right">{parseFloat(item.actual_total).toFixed(2) }</StyledTableCell>
+                        <StyledTableCell  align="right">{item.cost}</StyledTableCell>
+                     {/*   <StyledTableCell align="right">{parseFloat(item.auto_total).toFixed(2) }</StyledTableCell> */}
+                        <StyledTableCell  align="right">{parseFloat(item.actual_total).toFixed(2) }</StyledTableCell>
                         </StyledTableRow>
-                </>
-
+ 
             )
           })}
   
                              </TableBody>
                 </Table>
        </TableContainer>
-<Paper  elevation={2} sx={{ marginTop:'3rem'}} >
-  <Grid container spacing={4} >
-    <Grid item xs={12} xm={12} md={12} lg={12} >
-    <Typography variant="h6" component="div">
+<Paper  elevation={2} sx={{ marginTop:'3rem', width:'50%', float: 'right' }} >
+<Typography variant="h6" component="div">
         Statement Summary
     </Typography>
-                
-        </Grid>
-      
-        <Grid item xs={6} xm={6} md={6} lg={6} >
-            <TextField
-                id="actual_total"
-                label="₹ Actual Total"
-                value={parseFloat(statementSummary.actual_total).toFixed(2)}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
-        </Grid>
-        <Grid item xs={6} xm={6} md={6}  lg={6}>
-            <TextField
-                id="auto_total"
-                label="₹ Auto Total"
-                value={parseFloat(statementSummary.auto_total).toFixed(2) }
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
+<TableContainer>
+<Table>
+<TableBody>
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">₹ Total</StyledTableCell>
+<StyledTableCell  align="right">{parseFloat(statementSummary.actual_total).toFixed(2)}</StyledTableCell>
+</StyledTableRow>     
 
-        </Grid>
-        <Grid item xs={6} xm={6} md={6}  lg={6}>
-            <TextField
-                id="exp_total"
-                label="₹ Expenditure"
-                value={statementSummary.exp_total}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">₹ Expenditure</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.exp_total}</StyledTableCell>
+</StyledTableRow>     
 
-        </Grid>
-        <Grid item xs={6} xm={6} md={6}  lg={6}>
-            <TextField
-                id="cash_paid"
-                label="₹ Cash Paid"
-                value={statementSummary.cash_paid}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">₹ Card Paid</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.card_paid}</StyledTableCell>
+</StyledTableRow>     
 
-        </Grid>
-        <Grid item xs={6} xm={6} md={6}  lg={6}>
-            <TextField
-                id="card_paid"
-                label="₹ Card Paid"
-                value={statementSummary.card_paid}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
 
-        </Grid>
-        <Grid item xs={6} xm={6} md={6}  lg={6}>
-            <TextField
-                id="cash_balance"
-                label="₹ Cash Balance"
-                value={statementSummary.cash_balance}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">₹ Cash Paid</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.cash_paid}</StyledTableCell>
+</StyledTableRow>     
 
-        </Grid>
-        <Grid item xs={12} xm={6} md={6}  lg={6}>
-            <TextField
-                multiline
-                minRows={5}
-                id="exp_comments"
-                label="Comments"
-                placeholder="Expenditure Comments"
-                value={statementSummary.exp_comments}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            />
 
-        </Grid>
-        <Grid item xs={6} xm={6} md={6} lg={6}>
-            <TextField
-                id="status"
-                label="Statement Status"
-                required
-                value={statementSummary.status}
-                fullWidth
-                InputLabelProps={{
-                  style: { color: '#000' },
-                }}
-            > 
-            </TextField>
-        </Grid>
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">₹ Cash Balance</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.cash_balance}</StyledTableCell>
+</StyledTableRow>     
 
-    </Grid>
+
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">Expenditure Comments</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.exp_comments}</StyledTableCell>
+</StyledTableRow>     
+
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">Statement Status</StyledTableCell>
+<StyledTableCell  align="right">{statementSummary.status}</StyledTableCell>
+</StyledTableRow>  
+
+</TableBody>
+                </Table>
+       </TableContainer>
+  
 
 </Paper>
 </main>

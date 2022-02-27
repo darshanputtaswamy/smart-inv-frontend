@@ -19,8 +19,8 @@ export default function StatementPage() {
   const router = useRouter();
   const { store, id } = router.query; 
   useEffect(() => {
-    dispatch(getLobDetails(store)) 
-}, [dispatch])
+    if(store && id) dispatch(getLobDetails(store)) 
+}, [store, id, dispatch])
 
 
   return (

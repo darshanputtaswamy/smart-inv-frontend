@@ -165,18 +165,16 @@
 
 
 
-@media print {
-  footer {
-    position: fixed;
-    bottom: 0;
+@page {
+  margin: 5pt 6pt 7pt 5pt;
+  @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
   }
-  body {
-    margin: 0;
-    color: #000;
-    background-color: #fff;
+  @bottom-left {
+      margin: 10pt 0 30pt 0;
+      border-top: .25pt solid #666;
+      content: "My book";
+      font-size: 9pt;
+      color: #333;
   }
-  .content-block, p {
-    page-break-inside: avoid;
-  }
-
 }

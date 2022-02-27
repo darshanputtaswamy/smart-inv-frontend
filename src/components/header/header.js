@@ -16,21 +16,24 @@ const Header = () => {
    
 const navLinks  = [
   {'title': 'Stores',
-   'path':'/main'
+   'path':'/main',
+   'onClick':function(e){console.log("working");console.log(e)}
   },
   {'title': 'Employee',
-  'path':'/main/employee'
+  'path':'/main/employee',
+  'onClick':function(e){console.log("working");console.log(e)}
   },
   {'title': 'Reports',
-  'path':'/main/reports'
+  'path':'/main/reports',
+  'onClick':function(e){console.log("working");console.log(e)}
   },
   {'title': 'Profile',
   'path':'/main/profile',
-  'onClick':function(e){console.log(e)}
+  'onClick':function(e){console.log("working");console.log(e)}
   },
   {'title': 'Logout',
   'path':'/',
-  'onClick':function(e){console.log(e)}
+  'onClick':function(e){console.log("working");console.log(e)}
   }];
 
 

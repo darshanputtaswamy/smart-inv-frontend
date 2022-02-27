@@ -19,8 +19,12 @@ export default function InventoryPage() {
   const router = useRouter();
   const { store } = router.query; 
   useEffect(() => {
-    dispatch(getLobDetails(store)) 
-}, [dispatch])
+    if(store) {
+      console.log("===========")
+      console.log(store)
+      dispatch(getLobDetails(store)) 
+    }
+}, [store, dispatch])
 
   return ( 
        <Layout>
