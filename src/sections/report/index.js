@@ -1,15 +1,21 @@
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { Grid,TextField, Button , Stack , Paper, Card, CardHeader, CardContent,Typography,MenuItem ,  TableBody, Table,TableRow , TableCell, } from '@mui/material'; 
-import ReactTooltip from 'react-tooltip';
-import Ammount from './TotalAmount';
-import RevenueViz from './Revenue';
 import ExpenditureViz from './Expenditure';
-import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react'
+import RegistryReport from './RegistryReport';
+import { useDispatch, useSelector  } from 'react-redux';
+import React, { useState, useEffect ,useCallback } from 'react'
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+
 import {
-  getUserProfile 
-} from 'redux/actions/UserProfileActions'
+  getLobList
+} from 'redux/actions/LobActions'
+
+import {getStatementRegistryForListLobs} from 'redux/actions/StatementActions'
+
+
 const today = new Date();
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -21,19 +27,42 @@ export default function Report() {
   const { stores = [] } = useSelector((state) => state.user)
   const dispatch = useDispatch();
   const [bid, setbid] = useState('All');
-  const [newfDate, setNewfDate] = useState(new Date());
-  const [newtDate, setNewtDate] = useState(new Date());
+  let date = new Date();
+
+  const [newfDate, setNewfDate] = useState( new Date(date.getFullYear(), date.getMonth()-1, 1));
+  const [newtDate, setNewtDate] = useState(new Date(date.getFullYear(), date.getMonth(), 0));
+  const { lobList = []} = useSelector((state) => state.lob)
+  const [reset,toggleReset]= useState(false)
+  const { statementRegistryForListLobs = []  } = useSelector((state) => state.store)
+
+  useEffect(() => {
+    if(lobList.length == 0){
+      dispatch(getLobList()) 
+    }
+  }, [])
 
   const theme = useTheme();
   const smUp = useMediaQuery(theme.breakpoints.up('sm'));
-  useEffect(() => {
-    dispatch(getUserProfile()) 
-}, [dispatch])
 
+  const [tab, setTab] = useState('registry-report');
+
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
+  };
+
+
+
+  const handleonClick = useCallback(event => {
+    event.preventDefault();
+    if(lobList.length >0 ) {
+      dispatch(getStatementRegistryForListLobs(lobList.filter(e=> e.bid == bid || bid == 'All'),newfDate,newtDate))
+    } 
+
+  }, [bid,newfDate,newtDate,]);
 
   return (
 <>
-<Grid conatiner spacing={2} style={{ marginTop: '2px' }}>
+<Grid conatiner  style={{ marginTop: '2px' }}>
 <Grid item  > 
 <Paper elevation={4}  style={{ margin: '5px', padding:'15px'}} >
 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -41,20 +70,20 @@ export default function Report() {
         <TextField
               id="bid"
               select
-              sx={{ marginTop:'5px'}}
+              sx={{ marginTop:'5px',minWidth: "10%"}}
               label="Store Name"
               required
               value={bid}
               onChange={(event)=>{
+                
                 setbid(event.target.value)
               }}
-              sx={{ minWidth: "10%" }} 
           >
              <MenuItem value='All'>
                         All 
                     </MenuItem>
             {
-                stores.map(function(rowData){
+                lobList.filter(e=>e.role != 'user').map(function(rowData){
                   return (
                     <MenuItem value={rowData.bid}>
                         {rowData.bname} - [{rowData.address} - {rowData.postal_code}] 
@@ -69,114 +98,49 @@ export default function Report() {
           label="From Date"
           inputFormat="MM/dd/yyyy"
           value={newfDate}
-          onChange={(value)=>{setNewfDate(value)}}
+          onChange={(value)=>{setNewfDate(value)
+            console.log(value)
+          }}
           renderInput={(params) => <TextField {...params} />}
         />
         <MobileDatePicker
           label="To Date"
           inputFormat="MM/dd/yyyy"
           value={newtDate}
-          onChange={(value)=>{setNewtDate(value)}}
+          onChange={(value)=>{setNewtDate(value)
+            console.log(value)
+          }}
           renderInput={(params) => <TextField {...params} />}
         />
 <div>
-        <Button variant='contained'  sx={{ padding: "15px 20px" }}  > Submit</Button>
+        <Button variant='contained'  sx={{ padding: "15px 20px" }}  onClick={handleonClick}
+        > Submit</Button>
         </div>
 </Stack>
 </LocalizationProvider>
 
 </Paper>
 </Grid>
-<Grid container spacing={4} sx={{ padding:'15px' }}>
-  <Grid item xs={12} md={6} lg={6} xl={6} > 
-  <Card elevation={4}>
-    <CardHeader
-      title={<><Typography variant="div" component="p">
-        Revenue Accross Stores
-      </Typography>
-      </>
-      }
-      titleTypographyProps={{variant:'h7' }}
-      sx={{background:"#2a0a4e", color:"#fff"}}
-      />
-    <CardContent>
-      <RevenueViz />
-    </CardContent>
-  </Card>
-  
-  </Grid>
-  <Grid item xs={12} md={6} lg={6} xl={6}> 
-  <Card elevation={4}>
-    <CardHeader
-      title={<><Typography variant="div" component="p">
-        Expenditure Accross Stores
-      </Typography>
-      </>
-      }
-      titleTypographyProps={{variant:'h7' }}
-      sx={{background:"#2a0a4e", color:"#fff"}}
-      />
-    <CardContent>
-      <ExpenditureViz />
-    </CardContent>
-  </Card>
-  </Grid>
-  </Grid>
-  <Grid item > 
-  <Card elevation={4}>
-    <CardHeader
-      title={<><Typography variant="div" component="p">
-        Total Amount
-      </Typography>
-      </>
-      }
-      titleTypographyProps={{variant:'h7' }}
-      sx={{background:"#2a0a4e", color:"#fff"}}
-      />
-    <CardContent>
-      <Ammount />
-    </CardContent>
-  </Card>
-  </Grid>
-  <Grid item > 
-  <Card elevation={4}>
-    <CardHeader
-      title={<><Typography variant="div" component="p">
-        Expenditure Accross Stores
-      </Typography>
-      </>
-      }
-      titleTypographyProps={{variant:'h7' }}
-      sx={{background:"#2a0a4e", color:"#fff"}}
-      />
-    <CardContent>
-  
-    </CardContent>
-  </Card>
-  </Grid>
-
 </Grid>
 
-  
-
-  
- 
-
-    </>
+<Box sx={{ width: '100%' }}>
+  <>
+      <Tabs
+        value={tab}
+        onChange={handleTabChange}
+        indicatorColor="secondary"
+        textColor="inherit"
+        variant="fullWidth"
+        role="tabpanel"
+      >
+        <Tab key={1} value="registry-report" label="Registry Report" />
+        <Tab key={2} value="expense-chart" label="Expense Chart" />
+        
+      </Tabs>
+      { tab == "registry-report" && lobList.length > 0  && <RegistryReport data={statementRegistryForListLobs}/>}
+      { tab == "expense-chart"  &&  lobList.length > 0  &&  <ExpenditureViz data={statementRegistryForListLobs}/>}
+      </>
+    </Box>
+</>
   );
 }
-
-function shiftDate(date, numDays) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + numDays);
-  return newDate;
-}
-
-function getRange(count) {
-  return Array.from({ length: count }, (_, i) => i);
-}
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
- 

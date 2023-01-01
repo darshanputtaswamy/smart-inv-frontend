@@ -51,17 +51,7 @@ export default function WelcomeHeader() {
             >
               <Container maxWidth={false} sx={styles.container}>
                 <Logo sx={styles.logo} isSticky={state.isSticky} />
-                <Navbar
-                  isSticky={state.isSticky}
-                  isMobile={state.isMobileMenu}
-                  handleCloseMenu={handleCloseMenu}
-                />
-                   <HamburgerMenu
-                    sx={styles.hamburger}
-                    isSticky={state.isSticky}
-                    isOpen={state.isMobileMenu}
-                    toggleMobileMenu={toggleMobileMenu}
-                  />
+          
               </Container>
             </Box>
           </Sticky>

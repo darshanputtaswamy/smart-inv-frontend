@@ -78,6 +78,7 @@ export default function Footer() {
 
         </BottomNavigation>
       </Paper>
+      
     </Box>
   );
 }

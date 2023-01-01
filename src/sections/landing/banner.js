@@ -115,7 +115,7 @@ import {
         fontSize: [8, null, null, 10, 9, 14],
         lineHeight: 1.36,
         letterSpacing: 'heading',
-        color: 'textSecondary',
+        color: '#2a0a4e',
         mb: [5, null, null, 7, 8],
       },
     },
@@ -145,7 +145,7 @@ import {
   
       select: {
         border: 0,
-        color: 'textSecondary',
+        color: '#2a0a4e',
         fontWeight: 500,
         fontSize: [0, null, null, '15px'],
         lineHeight: 1.33,

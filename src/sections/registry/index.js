@@ -2,8 +2,8 @@ import React, { useState, useEffect,useRef } from 'react'
 import MaterialTable,{ MTableToolbar,MTableActions } from "@material-table/core";
 import { Grid, Button , Paper,} from '@mui/material'; 
 import {  
-getStatementRegistory,
-addRowInStatementRegistory,
+getStatementRegistry,
+addRowInStatementRegistry,
 } from 'redux/actions/StatementActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
@@ -83,7 +83,7 @@ export default function Statement() {
   };
 
   const handleSubmit = () =>{
-    dispatch(addRowInStatementRegistory(store, {
+    dispatch(addRowInStatementRegistry(store, {
       "previous_sid": newPreStatementID,
      "fdate":newfDate,
      "tdate":newtDate
@@ -99,7 +99,7 @@ export default function Statement() {
   }
 
   useEffect(() => {
-    if(store) dispatch(getStatementRegistory(store)) 
+    if(store) dispatch(getStatementRegistry(store)) 
 }, [store, dispatch])
 
 const theme = useTheme();
@@ -129,7 +129,7 @@ if (smUp) {
   <Grid item xs={12}>
   <div style={{ height: '70Vh', width: '100%' }}>
       <MaterialTable
-        title={smUp?"Registory":""}
+        title={smUp?"Registry":""}
         data={registory}
         actions={[
           {

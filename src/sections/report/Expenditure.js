@@ -1,25 +1,36 @@
 
 import React, {Component} from 'react'
-import Chart from "react-apexcharts";
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
+const ExpenditureViz = ({data}) => {
 
-const ExpenditureViz = () => {
+      let series=[]
+      let expenseComments=[]
+      let categories=data[0].payload.map(e=>e.fdate.split('T')[0])
+      data.map(e=>{
+          series.push({name:e.store.bname,data:e.payload.map(d=>d.exp_total)})
+          expenseComments.push({name:e.store.bname,data:e.payload.map(d=>d.exp_comments)})
+      })
+
 
       let state = {
         options: {
           chart: {
-            id: "basic-bar"
+            id: "Expense Report"
           },
           xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+            categories: categories
           }
         },
-        series: [
-          {
-            name: "series-1",
-            data: [30, 40, 45, 50, 49, 60, 70, 91]
+        series: series,
+        tooltip: {
+          custom: function({series, seriesIndex, dataPointIndex, w}) {
+            return '<div class="arrow_box">' +
+              '<span>' + expenseComments[dataPointIndex] + '</span>' +
+              '</div>'
           }
-        ]
+        }
       };
     
     
@@ -32,7 +43,7 @@ const ExpenditureViz = () => {
               options={state.options}
               series={state.series}
               type="bar"
-              width="500"
+              width='100%'
             />
           </div>
         </div>

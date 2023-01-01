@@ -3,8 +3,8 @@ import { Grid, Button , Stack , Paper, Card, CardHeader, CardContent, TableBody,
 import ViewStatement from './ViewStatement';
 import EditStatement from './EditStatement';
 import {  
-    deleteRowInStatementRegistory,
-    getStatementRegistoryById
+    deleteRowInStatementRegistry,
+    getStatementRegistryById
 } from 'redux/actions/StatementActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'; 
@@ -24,7 +24,7 @@ export default function StatementIndex({lobDetails}) {
     let [ viewMode, setViewMode] = useState(true);
     let [ disableOpen, setDisableOpen] = useState(true);
     useEffect(() => {
-        if(store && id)  dispatch(getStatementRegistoryById(store,id)) 
+        if(store && id)  dispatch(getStatementRegistryById(store,id)) 
   }, [store,id, isDirty, dispatch])
 
   
@@ -38,7 +38,7 @@ export default function StatementIndex({lobDetails}) {
   
   const handleDelete = function(e){
     
-    dispatch(deleteRowInStatementRegistory(store,id)).then(function(e){
+    dispatch(deleteRowInStatementRegistry(store,id)).then(function(e){
         router.push(`/main/${store}/statements`);
     }).catch(function(e){
         console.log("Something happened")
@@ -49,7 +49,6 @@ export default function StatementIndex({lobDetails}) {
 
 
   useEffect(() => {
-    console.log(selectedStatement)
         if (selectedStatement.previous_sid){
             setDisableOpen(true)
         }else{

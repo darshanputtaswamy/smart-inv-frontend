@@ -37,7 +37,8 @@ const styles = {
       position: 'absolute',
       backgroundColor: 'white',
       boxShadow: '0px 11px 30px rgba(51, 83, 145, 0.07)',
-      width: '100%',
+      width: '90%',
+      margin:'30px 10px',
       left: 0,
       top: 70,
       opacity: 0,
@@ -54,9 +55,10 @@ const styles = {
         transform: 'scaleY(1)',
       },
       a: {
-        fontWeight: 500,
+        fontWeight: 800,
+        fontFamily: 'Roboto',
         lineHeight: 1,
-        color: 'textSecondary',
+        color:'#2a0a4e',
         display: 'block',
         padding: 3,
         '+ a': {
@@ -70,7 +72,7 @@ const styles = {
         color: 'text',
       },
       '.active': {
-        color: 'primary',
+        color: '#2a0a4e',
       },
     },
   },

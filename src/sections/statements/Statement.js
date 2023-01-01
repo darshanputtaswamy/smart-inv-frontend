@@ -43,7 +43,83 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
- 
+
+function getCasesToBottle(mou,quantity,cases){
+    if (cases ==0){
+      return 0
+    } else if (quantity>0 & cases >0){
+        if(mou == 'ltr' ){
+            if (quantity == 1){
+              return parseFloat(cases*9).toFixed(2)
+            }
+        }
+        if (mou == 'ml'){
+          switch (parseInt(quantity)) {
+            case 750:
+              return parseFloat(cases*12).toFixed(2)
+            case 375:
+              return parseFloat(cases*24).toFixed(2)
+            case 180:
+              return parseFloat(cases*48).toFixed(2)
+            case 90:
+              return parseFloat(cases*96).toFixed(2)
+            case 60:
+              return parseFloat(cases*150).toFixed(2)
+            case 650:
+              return parseFloat(cases*12).toFixed(2)
+            case 500:
+              return parseFloat(cases*24).toFixed(2)
+            case 330:
+              return parseFloat(cases*24).toFixed(2)
+            case 275:
+              return parseFloat(cases*24).toFixed(2)
+            default:
+              return -1
+          }
+        }
+    } else{
+      return 0
+    }
+  }
+
+function getBottleToCases(mou,quantity,bottle){
+  if (bottle ==0){
+    return 0
+  } else if (quantity>0 & bottle >0){
+      if(mou == 'ltr' ){
+          if (quantity == 1){
+            return parseFloat(bottle/9).toFixed(2)
+          }
+      }
+      if (mou == 'ml'){
+        console.log(quantity)
+        switch (parseInt(quantity)) {
+          case 750:
+            return parseFloat(bottle/12).toFixed(2)
+          case 375:
+            return parseFloat(bottle/24).toFixed(2)
+          case 180:
+            return parseFloat(bottle/48).toFixed(2)
+          case 90:
+            return parseFloat(bottle/96).toFixed(2)
+          case 60:
+            return parseFloat(bottle/150).toFixed(2)
+          case 650:
+            return parseFloat(bottle/12).toFixed(2)
+          case 500:
+            return parseFloat(bottle/24).toFixed(2)
+          case 330:
+            return parseFloat(bottle/24).toFixed(2)
+          case 275:
+            return parseFloat(bottle/24).toFixed(2)
+          default:
+            return -1
+        }
+      }
+  } else{
+    return 0
+  }
+}
  
 
 export const  Statement = React.forwardRef((props, ref) => {
@@ -114,7 +190,8 @@ return  (
                         <StyledTableCell  component="th" scope="row" align="right">Name</StyledTableCell>
                         <StyledTableCell  component="th" scope="row" align="right">Quantity</StyledTableCell>
                         <StyledTableCell  component="th" scope="row" align="right">Open</StyledTableCell>
-                        <StyledTableCell  component="th" scope="row" align="right">Received</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Received (Cases)</StyledTableCell>
+                        <StyledTableCell  component="th" scope="row" align="right">Received (Bottles)</StyledTableCell>
                         <StyledTableCell  component="th" scope="row" align="right">Total</StyledTableCell>
                         <StyledTableCell  component="th" scope="row" align="right">Closed</StyledTableCell>
                         <StyledTableCell  component="th" scope="row" align="right">Sales</StyledTableCell>
@@ -135,7 +212,7 @@ return  (
                         <StyledTableCell  align="right">{item.quantity == -1 ? 'Loose '+ item.mou: item.quantity + ' ' + item.mou}</StyledTableCell>
                      
                         <StyledTableCell  align="right">{item.open}</StyledTableCell>
-                      
+                      <StyledTableCell  align="right">{getBottleToCases(item.mou,item.quantity,item.received)}</StyledTableCell>
                         <StyledTableCell  align="right">{item.received}</StyledTableCell>
                         <StyledTableCell  align="right">{parseInt(item.received)+parseInt(item.open)}</StyledTableCell>
                         <StyledTableCell  align="right">{item.closed}</StyledTableCell>
@@ -160,6 +237,11 @@ return  (
 <TableContainer>
 <Table>
 <TableBody>
+<StyledTableRow style={{height: 5}}>
+<StyledTableCell  align="right">Total Received Perticular</StyledTableCell>
+<StyledTableCell  align="right">{parseInt(statement.reduce((total,x) => (x.received!=0 ? total+1 : total), 0))}</StyledTableCell>
+</StyledTableRow>    
+
 <StyledTableRow style={{height: 5}}>
 <StyledTableCell  align="right">₹ Total</StyledTableCell>
 <StyledTableCell  align="right">{parseFloat(statementSummary.actual_total).toFixed(2)}</StyledTableCell>

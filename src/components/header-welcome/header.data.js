@@ -1,11 +1,7 @@
 export default [
   {
-    path: 'home',
-    label: 'Home',
-  },
-  {
-    path: 'services',
-    label: 'Services',
+    path: 'login',
+    label: 'Login',
   },
   {
     path: 'features',
@@ -20,11 +16,7 @@ export default [
     label: 'Testimonials',
   },
   {
-    path: 'blog',
-    label: 'Blog',
-  },
-  {
-    path: 'faq',
-    label: 'Faq',
+    path: 'contacts',
+    label: 'Contacts',
   },
 ];

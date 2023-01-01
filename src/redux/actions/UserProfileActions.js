@@ -7,6 +7,7 @@ export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD'
 
 export const getUserProfile = () => (dispatch) => {
     api.get('/user/details').then((res) => {
+        console.log(res.data)
         dispatch({
             type: GET_USER_PROFILE,
             payload: res.data,

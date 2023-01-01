@@ -4,7 +4,7 @@ import { Grid, Button, Paper, Typography,Stack  , Box, Card, CardHeader, CardCon
 import {
     getStatement,
     updateRowInStatement,
-    updateRowInStatementRegistory,
+    updateRowInStatementRegistry,
 } from 'redux/actions/StatementActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -13,6 +13,85 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
+
+function getCasesToBottle(mou,quantity,cases){
+    if (cases ==0){
+      return 0
+    } else if (quantity>0 & cases >0){
+        if(mou == 'ltr' ){
+            if (quantity == 1){
+              return parseFloat(cases*9).toFixed(2)
+            }
+        }
+        if (mou == 'ml'){
+          switch (parseInt(quantity)) {
+            case 750:
+              return parseFloat(cases*12).toFixed(2)
+            case 375:
+              return parseFloat(cases*24).toFixed(2)
+            case 180:
+              return parseFloat(cases*48).toFixed(2)
+            case 90:
+              return parseFloat(cases*96).toFixed(2)
+            case 60:
+              return parseFloat(cases*150).toFixed(2)
+            case 650:
+              return parseFloat(cases*12).toFixed(2)
+            case 500:
+              return parseFloat(cases*24).toFixed(2)
+            case 330:
+              return parseFloat(cases*24).toFixed(2)
+            case 275:
+              return parseFloat(cases*24).toFixed(2)
+            default:
+              return -1
+          }
+        }
+    } else{
+      return 0
+    }
+  }
+
+function getBottleToCases(mou,quantity,bottle){
+  if (bottle ==0){
+    return 0
+  } else if (quantity>0 & bottle >0){
+      if(mou == 'ltr' ){
+          if (quantity == 1){
+            return parseFloat(bottle/9).toFixed(2)
+          }
+      }
+      if (mou == 'ml'){
+        console.log(quantity)
+        switch (parseInt(quantity)) {
+          case 750:
+            return parseFloat(bottle/12).toFixed(2)
+          case 375:
+            return parseFloat(bottle/24).toFixed(2)
+          case 180:
+            return parseFloat(bottle/48).toFixed(2)
+          case 90:
+            return parseFloat(bottle/96).toFixed(2)
+          case 60:
+            return parseFloat(bottle/150).toFixed(2)
+          case 650:
+            return parseFloat(bottle/12).toFixed(2)
+          case 500:
+            return parseFloat(bottle/24).toFixed(2)
+          case 330:
+            return parseFloat(bottle/24).toFixed(2)
+          case 275:
+            return parseFloat(bottle/24).toFixed(2)
+          default:
+            return -1
+        }
+      }
+  } else{
+    return 0
+  }
+}
+ 
 
 export default function EditStatement({ setParentIsDirty, statementSummary, disableOpen , setViewMode}) {
     let [formState, setFormState] = useState({
@@ -87,7 +166,7 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
         };
     
         const handleSubmit = () =>{
-            dispatch(updateRowInStatementRegistory(store, formState)).then(function(e){
+            dispatch(updateRowInStatementRegistry(store, formState)).then(function(e){
                 setParentIsDirty(true);
                 setViewMode(true)
             }).catch(function(e){
@@ -130,7 +209,30 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
             )
         },
         {
-            field: 'received', title: 'Received',
+            field: 'receivedc', title: 'Received (Cases)',
+            editComponent: props => (
+                <TextField
+                    id="received"
+                    type="number"
+                    onChange={e => {
+                        var data = { ...props.rowData };
+                        data.receivedc = e.target.value
+                        data.received = getCasesToBottle(data.mou,data.quantity,parseFloat(data.receivedc))
+                        let received = isNaN(data.received) ? 0 : data.received;
+                        let open = isNaN(data.open) ? 0 : data.open;
+                        let closed = isNaN(data.closed) ? 0 : data.closed;
+                        data.sales = (parseFloat(received) + parseFloat(open) - parseFloat(closed))
+                        data.actual_total = (parseFloat(received) + parseFloat(open) - parseFloat(closed)) * parseFloat(data.cost);
+                        data.auto_total =  data.actual_total;
+                        props.onRowDataChange(data);
+                    }}
+                    value={props.value}
+                />
+            )
+        },
+
+        {
+            field: 'received', title: 'Received (Bottles)',
             editComponent: props => (
                 <TextField
                     id="received"
@@ -138,6 +240,7 @@ const shouldShowTitle = useMediaQuery(theme.breakpoints.up('sm'));
                     onChange={e => {
                         var data = { ...props.rowData };
                         data.received = e.target.value
+                        data.receivedc = getBottleToCases(data.mou,data.quantity,parseFloat(data.received))
                         let received = isNaN(data.received) ? 0 : data.received;
                         let open = isNaN(data.open) ? 0 : data.open;
                         let closed = isNaN(data.closed) ? 0 : data.closed;

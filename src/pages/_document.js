@@ -23,6 +23,13 @@ class CustomDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
+          
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"  />
+          <script>
+          
+            
+          </script>
+
         </Head>
         <body>
           <Main />
