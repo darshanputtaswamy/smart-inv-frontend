@@ -3,6 +3,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 import { Grid,TextField, Button , Stack , Paper, Card, CardHeader, CardContent,Typography,MenuItem ,  TableBody, Table,TableRow , TableCell, } from '@mui/material'; 
 import ExpenditureViz from './Expenditure';
 import RegistryReport from './RegistryReport';
+import SalesViz  from './SalesChart';
 import { useDispatch, useSelector  } from 'react-redux';
 import React, { useState, useEffect ,useCallback } from 'react'
 import Tabs from '@mui/material/Tabs';
@@ -135,10 +136,11 @@ export default function Report() {
       >
         <Tab key={1} value="registry-report" label="Registry Report" />
         <Tab key={2} value="expense-chart" label="Expense Chart" />
-        
+        <Tab key={3} value="sales-chart" label="Sales Chart" />
       </Tabs>
       { tab == "registry-report" && lobList.length > 0  && <RegistryReport data={statementRegistryForListLobs}/>}
       { tab == "expense-chart"  &&  lobList.length > 0  &&  <ExpenditureViz data={statementRegistryForListLobs}/>}
+      { tab == 'sales-chart'  && lobList.length >0 && <SalesViz data={statementRegistryForListLobs}/>}
       </>
     </Box>
 </>
